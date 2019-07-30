@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/minicatsCB/array-utils/issues"
   },
-  "homepage": "https://github.com/minicatsCB/array-utils#readme"
+  "homepage": "https://github.com/minicatsCB/array-utils#readme",
+  "dependencies": {
+    "express": "4.17.1"
+  }
 }
