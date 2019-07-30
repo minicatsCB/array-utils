@@ -15,9 +15,7 @@ async function runPlugin({key, plugin}) {
 }
 
 runPlugin(plugins[0]).then(data => {
-	let postData = JSON.stringify(data, null, 2);
-	console.log("Sending data:", postData);
-	core.sendData(postData);
+    let postData = JSON.stringify(data, null, 2);
+    console.log("Sending data:", postData);
+    core.sendData(postData);
 });
-
-
