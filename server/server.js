@@ -17,8 +17,8 @@ app.get("/data", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-    console.log("Received data:", JSON.stringify(req.body));
-    controller.saveData(JSON.stringify(req.body));
+    console.log("Received data:", req.body);
+    controller.saveData(req.body);
     res.send("Hello World!");
 });
 

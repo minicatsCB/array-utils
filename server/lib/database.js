@@ -13,7 +13,7 @@ let database = {
         return db.get("data").value();
     },
     saveData: function(data) {
-        console.log("Writing data to database:", data);
+        console.log("Writing data to database...");
          db.get("data")
            .push(data)
            .write();
