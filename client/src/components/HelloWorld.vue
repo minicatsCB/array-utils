@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <li v-for="machine in machinesData">
+    <li v-for="(machine, index) in machinesData" v-bind:key="index">
         {{ machine }}
     </li>
   </div>
