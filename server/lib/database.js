@@ -21,9 +21,28 @@ let database = {
             macAddress = utils.getMacAddress(ifaces);
         }
 
-         db.get("data")
-           .push({ id: utils.generateHash(macAddress), os: data.os, env: data.env })
-           .write();
+        let id = utils.generateHash(macAddress);
+
+        if(database.machineExists(id)) {
+            let key = Object.keys(data)[0];
+              db.get("data")
+                .find({ id: id })
+                .assign({ [key]: data[key]})
+                .write();
+
+            console.log("Record for this machine already exists. Updating data...");
+        } else {
+            db.get("data")
+              .push({ id: id, os: data.os, env: data.env })
+              .write();
+
+            console.log("No record for this machine found. Creating new record...");
+        }
+    },
+    machineExists: function(id) {
+        return db.get("data")
+            .find({ id: id })
+            .value();
     }
 }
 
