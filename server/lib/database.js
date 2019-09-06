@@ -1,3 +1,4 @@
+const utils = require("./utils");
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
@@ -14,8 +15,14 @@ let database = {
     },
     saveData: function(data) {
         console.log("Writing data to database...");
+        if(data.os) {
+            // Use the MAC adress to use it as the computer ID
+            let ifaces = data.os.networkInterfaces;
+            macAddress = utils.getMacAddress(ifaces);
+        }
+
          db.get("data")
-           .push(data)
+           .push({ id: utils.generateHash(macAddress), os: data.os, env: data.env })
            .write();
     }
 }
