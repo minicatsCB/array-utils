@@ -1,5 +1,5 @@
 const { exec } = require("child_process");
-const core = require("./core");
+const core = require("./lib/core");
 
 const plugins = [
     {
