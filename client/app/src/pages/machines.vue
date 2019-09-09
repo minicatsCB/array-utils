@@ -1,9 +1,15 @@
 <template>
   <q-page>
-    <div class="q-pa-md row items-start q-gutter-md">
-        <machine-card></machine-card>
-        <machine-card></machine-card>
-        <machine-card></machine-card>
+    <div class="row q-pa-md">
+        <div class="col-6">
+            <machine-card></machine-card>
+            <machine-card></machine-card>
+            <machine-card></machine-card>
+        </div>
+        <div class="col-6">
+            <p>Select a machine from the list to see its details</p>
+            <img class="instructions-img" src="https://cdn.quasar.dev/img/mountains.jpg">
+        </div>
     </div>
   </q-page>
 </template>
@@ -23,5 +29,7 @@ export default {
 </script>
 
 <style>
-
+.instructions-img {
+    width: 200px;
+}
 </style>
