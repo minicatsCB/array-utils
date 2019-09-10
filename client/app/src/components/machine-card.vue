@@ -4,15 +4,16 @@
         <q-icon name="warning" size="md" />
       </q-card-section>
       <q-card-section class="summary absolute-bottom text-right text-body2">
-        <div>ubuntu1</div>
-        <div>10.5.3.1</div>
+        <div>{{ hostname }}</div>
+        <div>{{ address }}</div>
       </q-card-section>
     </q-card>
 </template>
 
 <script>
 export default {
-  name: 'machine-card'
+  name: 'machine-card',
+  props: ['hostname', 'address']
 }
 </script>
 

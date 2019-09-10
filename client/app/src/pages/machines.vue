@@ -6,6 +6,8 @@
                 v-for="(machine, index) in machines"
                 v-bind:key="index"
                 @click.native="goToMachineDetails"
+                v-bind:hostname="machine.hostname"
+                v-bind:address="machine.address"
             >
             </machine-card>
         </div>
