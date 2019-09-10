@@ -2,9 +2,12 @@
   <q-page>
     <div class="row q-pa-md">
         <div class="col-6">
-            <machine-card @click.native="goToMachineDetails"></machine-card>
-            <machine-card @click.native="goToMachineDetails"></machine-card>
-            <machine-card @click.native="goToMachineDetails"></machine-card>
+            <machine-card
+                v-for="(machine, index) in machines"
+                v-bind:key="index"
+                @click.native="goToMachineDetails"
+            >
+            </machine-card>
         </div>
         <div class="col-6">
             <p>Select a machine from the list to see its details</p>
@@ -20,7 +23,25 @@ import MachineCard from '../components/machine-card'
 export default {
   name: 'machines',
   data () {
-    return {}
+    return {
+      machines: [
+        {
+          id: '000',
+          hostname: 'ubuntu1',
+          address: '10.5.3.1'
+        },
+        {
+          id: '001',
+          hostname: 'ubuntu4',
+          address: '10.5.3.5'
+        },
+        {
+          id: '002',
+          hostname: 'ubuntu2',
+          address: '10.5.3.6'
+        }
+      ]
+    }
   },
   methods: {
     goToMachineDetails: function () {
