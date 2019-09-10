@@ -49,7 +49,12 @@ module.exports = function (ctx) {
         'QBreadcrumbs',
         'QBreadcrumbsEl',
         'QCard',
-        'QCardSection'
+        'QCardSection',
+        'QTabs',
+        'QTab',
+        'QTabPanels',
+        'QTabPanel',
+        'QSeparator'
       ],
 
       directives: [
