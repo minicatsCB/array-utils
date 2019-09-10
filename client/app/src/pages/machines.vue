@@ -2,9 +2,9 @@
   <q-page>
     <div class="row q-pa-md">
         <div class="col-6">
-            <machine-card></machine-card>
-            <machine-card></machine-card>
-            <machine-card></machine-card>
+            <machine-card @click.native="goToMachineDetails"></machine-card>
+            <machine-card @click.native="goToMachineDetails"></machine-card>
+            <machine-card @click.native="goToMachineDetails"></machine-card>
         </div>
         <div class="col-6">
             <p>Select a machine from the list to see its details</p>
@@ -21,6 +21,11 @@ export default {
   name: 'machines',
   data () {
     return {}
+  },
+  methods: {
+    goToMachineDetails: function () {
+      this.$router.push({ path: 'machine-details' })
+    }
   },
   components: {
     MachineCard
