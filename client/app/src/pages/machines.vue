@@ -59,7 +59,8 @@ export default {
             this.machines.push({
               id: machine.id,
               hostname: machine.os.hostname,
-              address: machine.os.networkInterfaces.enp0s3[0].address
+              address: machine.os.networkInterfaces.enp0s3[0].address,
+              data: machine
             })
           }
         })

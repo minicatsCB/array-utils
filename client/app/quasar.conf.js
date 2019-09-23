@@ -54,7 +54,8 @@ module.exports = function (ctx) {
         'QTab',
         'QTabPanels',
         'QTabPanel',
-        'QSeparator'
+        'QSeparator',
+        'QExpansionItem'
       ],
 
       directives: [
