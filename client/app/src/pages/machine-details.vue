@@ -38,6 +38,9 @@ export default {
     return {
       tab: 'os'
     }
+  },
+  created: function () {
+    console.log('Details for machine with ID:', this.$route.query.id)
   }
 }
 </script>

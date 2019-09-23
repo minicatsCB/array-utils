@@ -5,7 +5,7 @@
             <machine-card
                 v-for="(machine, index) in machines"
                 v-bind:key="index"
-                @click.native="goToMachineDetails"
+                @click.native="goToMachineDetails(machine)"
                 v-bind:hostname="machine.hostname"
                 v-bind:address="machine.address"
             >
@@ -45,9 +45,32 @@ export default {
       ]
     }
   },
+  created: function () {
+    this.loadData()
+  },
   methods: {
-    goToMachineDetails: function () {
-      this.$router.push({ path: 'machine-details' })
+    goToMachineDetails: function (machine) {
+      this.$router.push({ path: 'machine-details', query: { id: machine } })
+    },
+    loadData () {
+      this.$axios.get('http://localhost:3000/data')
+        .then((response) => {
+          for (let machine of response.data) {
+            this.machines.push({
+              id: machine.id,
+              hostname: machine.os.hostname,
+              address: machine.os.networkInterfaces.enp0s3[0].address
+            })
+          }
+        })
+        .catch((err) => {
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Loading failed' + err.toString(),
+            icon: 'report_problem'
+          })
+        })
     }
   },
   components: {
