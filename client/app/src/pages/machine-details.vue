@@ -26,19 +26,19 @@
                 <q-expansion-item
                     switch-toggle-side
                     dense-toggle
-                    :label="Object.keys(machineData.data.os.networkInterfaces)[index]"
+                    :label="index"
                     :header-inset-level="1"
                     :content-inset-level="2"
-                    v-for="(intf, index) of machineData.data.os.networkInterfaces.enp0s3"
+                    v-for="(intf, index) in machineData.data.os.networkInterfaces"
                     v-bind:key="index">
                     <q-card>
                       <q-card-section>
-                          <q-item>Address:{{intf.address}}</q-item>
-                          <q-item>Netmask:{{intf.netmask}}</q-item>
-                          <q-item>Family:{{intf.family}}</q-item>
-                          <q-item>MAC:{{intf.mac}}</q-item>
-                          <q-item>Internal:{{intf.internal}}</q-item>
-                          <q-item>CIDR:{{intf.cidr}}</q-item>
+                          <q-item
+                          v-for="(prop, ind) of machineData.data.os.networkInterfaces[index][0]"
+                          v-bind:key="ind"
+                          >
+                          {{ind}}: {{prop}}
+                      </q-item>
                       </q-card-section>
                     </q-card>
                 </q-expansion-item>
@@ -50,7 +50,17 @@
 
       <q-tab-panel name="env">
         <div class="text-h6">ENV</div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <q-list dense bordered padding class="rounded-borders">
+              <q-item
+              clickable
+              v-ripple
+              v-for="(variable, index) of machineData.data.env"
+              :key="index">
+                <q-item-section>
+                  <b>{{index}}</b> {{variable}}
+                </q-item-section>
+              </q-item>
+            </q-list>
       </q-tab-panel>
     </q-tab-panels>
   </div>
