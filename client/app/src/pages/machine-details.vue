@@ -11,22 +11,22 @@
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="os">
         <q-list v-if="machineData" bordered class="rounded-borders">
-          <q-expansion-item expand-separator icon="mail" label="Operative system" default-opened>
+          <q-expansion-item expand-separator icon="settings_system_daydream" label="Operative system" default-opened>
             <q-item>Hostname: {{machineData.data.os.hostname}}</q-item>
             <q-item>Platform: {{machineData.data.os.platform}}</q-item>
             <q-item>Release: {{machineData.data.os.release}}</q-item>
             <q-item>Arch: {{machineData.data.os.arch}}</q-item>
-            <q-expansion-item :header-inset-level="1" expand-separator icon="receipt" label="User info" default-opened>
+            <q-expansion-item :header-inset-level="1" expand-separator icon="person" label="User info" default-opened>
                 <q-item>Username: {{machineData.data.os.userInfo.username}}</q-item>
                 <q-item>Homedir: {{machineData.data.os.userInfo.homedir}}</q-item>
                 <q-item>Shell: {{machineData.data.os.userInfo.shell}}</q-item>
             </q-expansion-item>
 
-            <q-expansion-item :header-inset-level="1" :content-inset-level="1" expand-separator icon="schedule" label="Network interfaces" default-opened>
+            <q-expansion-item :header-inset-level="1" :content-inset-level="1" expand-separator icon="network_check" label="Network interfaces" default-opened>
                 <q-expansion-item
                     switch-toggle-side
                     dense-toggle
-                    label="Today"
+                    :label="Object.keys(machineData.data.os.networkInterfaces)[index]"
                     :header-inset-level="1"
                     :content-inset-level="2"
                     v-for="(intf, index) of machineData.data.os.networkInterfaces.enp0s3"
