@@ -1,0 +1,19 @@
+{
+  "name": "array-utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "array-utils.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node array-utils.js",
+    "start": "node array-utils.js"
+  },
+  "bin": {
+    "array-utils": "array-utils.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
