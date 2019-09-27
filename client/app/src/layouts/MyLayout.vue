@@ -9,12 +9,6 @@
         Title
       </q-toolbar-title>
     </q-toolbar>
-
-    <q-toolbar class="bg-cyan">
-      <q-breadcrumbs>
-        <q-breadcrumbs-el label="Machines" icon="computer" />
-      </q-breadcrumbs>
-    </q-toolbar>
   </q-header>
 
   <q-page-container>
