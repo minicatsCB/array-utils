@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import MachineCard from '../components/machine-card'
+import MachineCard from '../components/machineCard'
 
 export default {
   name: 'machines',
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     goToMachineDetails: function (machine) {
-      this.$router.push({ path: 'machine-details', query: { id: machine } })
+      this.$router.push({ path: 'infoTabs', query: { id: machine } })
     },
     loadData () {
       this.$axios.get('http://localhost:3000/data')

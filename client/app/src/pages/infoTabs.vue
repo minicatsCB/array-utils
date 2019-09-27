@@ -69,7 +69,7 @@
 
 <script>
 export default {
-  name: 'machine-details',
+  name: 'info-tabs',
   data () {
     return {
       tab: 'os',

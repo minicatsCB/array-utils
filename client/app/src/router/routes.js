@@ -2,16 +2,16 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MyLayout.vue'),
+    component: () => import('layouts/Index.vue'),
     children: [
-      { path: '', component: () => import('pages/machines.vue') }
+      { path: '', component: () => import('pages/machinesList.vue') }
     ]
   },
   {
-    path: '/machine-details',
-    component: () => import('layouts/MyLayout.vue'),
+    path: '/infoTabs',
+    component: () => import('layouts/Index.vue'),
     children: [
-      { path: '', component: () => import('pages/machine-details.vue') }
+      { path: '', component: () => import('pages/infoTabs.vue') }
     ]
   }
 ]
