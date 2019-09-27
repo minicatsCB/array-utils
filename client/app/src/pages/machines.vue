@@ -26,23 +26,7 @@ export default {
   name: 'machines',
   data () {
     return {
-      machines: [
-        {
-          id: '000',
-          hostname: 'ubuntu1',
-          address: '10.5.3.1'
-        },
-        {
-          id: '001',
-          hostname: 'ubuntu4',
-          address: '10.5.3.5'
-        },
-        {
-          id: '002',
-          hostname: 'ubuntu2',
-          address: '10.5.3.6'
-        }
-      ]
+      machines: []
     }
   },
   created: function () {
