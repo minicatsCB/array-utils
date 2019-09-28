@@ -1,25 +1,25 @@
 <template>
 <div class="q-pa-md">
   <div class="q-gutter-y-md">
-    <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify" narrow-indicator>
+    <q-tabs v-model="tab" dense class="text-lime" active-color="lime" indicator-color="lime" align="justify" narrow-indicator>
       <q-tab name="os" label="OS"></q-tab>
       <q-tab name="env" label="ENV"></q-tab>
     </q-tabs>
 
-    <q-separator></q-separator>
+    <q-separator class="bg-red"></q-separator>
 
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="os">
         <q-list v-if="machineData" bordered class="rounded-borders">
           <q-expansion-item expand-separator icon="settings_system_daydream" label="Operative system" default-opened>
-            <q-item>Hostname: {{machineData.data.os.hostname}}</q-item>
-            <q-item>Platform: {{machineData.data.os.platform}}</q-item>
-            <q-item>Release: {{machineData.data.os.release}}</q-item>
-            <q-item>Arch: {{machineData.data.os.arch}}</q-item>
+            <q-item><span>Hostname: </span> {{machineData.data.os.hostname}}</q-item>
+            <q-item><span>Platform: </span> {{machineData.data.os.platform}}</q-item>
+            <q-item><span>Release: </span> {{machineData.data.os.release}}</q-item>
+            <q-item><span>Arch:</span> {{machineData.data.os.arch}}</q-item>
             <q-expansion-item :header-inset-level="1" expand-separator icon="person" label="User info" default-opened>
-                <q-item>Username: {{machineData.data.os.userInfo.username}}</q-item>
-                <q-item>Homedir: {{machineData.data.os.userInfo.homedir}}</q-item>
-                <q-item>Shell: {{machineData.data.os.userInfo.shell}}</q-item>
+                <q-item><span>Username:</span> {{machineData.data.os.userInfo.username}}</q-item>
+                <q-item><span>Homedir:</span> {{machineData.data.os.userInfo.homedir}}</q-item>
+                <q-item><span>Shell:</span> {{machineData.data.os.userInfo.shell}}</q-item>
             </q-expansion-item>
 
             <q-expansion-item :header-inset-level="1" :content-inset-level="1" expand-separator icon="network_check" label="Network interfaces" default-opened>
@@ -82,3 +82,22 @@ export default {
   }
 }
 </script>
+
+<style lang="styl">
+.q-tab-panels {
+    background-color: transparent;
+    color: $lime;
+}
+
+.q-tab-panels .q-item {
+    border: 1px solid $graniteGray;
+}
+
+.q-expansion-item span {
+    color: $mintGreen;
+    font-weight: bold;
+}
+.q-item .column {
+    color: $chromeYellow;
+}
+</style>
