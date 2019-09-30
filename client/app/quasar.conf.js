@@ -55,7 +55,8 @@ module.exports = function (ctx) {
         'QTabPanels',
         'QTabPanel',
         'QSeparator',
-        'QExpansionItem'
+        'QExpansionItem',
+        'QLinearProgress'
       ],
 
       directives: [
