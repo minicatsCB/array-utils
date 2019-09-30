@@ -1,2 +1,0 @@
-# array-utils
-array-utils
