@@ -1,6 +1,6 @@
 <template>
 <q-layout class="bg-black" view="hHh lpr fff">
-  <q-header reveal class="bg-black">
+  <q-header reveal class="bg-black header">
     <q-toolbar>
       <q-toolbar-title class="text-right text-uppercase text-h6 q-pa-xs fade-in-left">
         Hacker's dashboard
@@ -49,5 +49,9 @@ export default {
 
 .fade-in-left {
   animation: fadeIn 1s;
+}
+
+.header {
+    height: 52px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="row q-pa-md">
+    <div class="row instructions">
         <div class="col-6">
             <machine-card
                 v-for="(machine, index) in machines"
@@ -11,8 +11,8 @@
             >
             </machine-card>
         </div>
-        <div class="col-6">
-            <p>Select a machine from the list to see its details</p>
+        <div class="col-6 self-center q-pa-xl">
+            <p class="text-grey text-h4">Select a machine from the list to see its details</p>
             <img class="instructions-img" src="https://cdn.quasar.dev/img/mountains.jpg">
         </div>
     </div>
@@ -65,6 +65,11 @@ export default {
 </script>
 
 <style>
+.instructions {
+    text-align: center;
+    height: calc(100vh - 52px);
+}
+
 .instructions-img {
     width: 200px;
 }
