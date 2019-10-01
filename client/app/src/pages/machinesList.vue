@@ -1,22 +1,16 @@
 <template>
-  <q-page>
-    <div class="row instructions">
-        <div class="col-6">
-            <machine-card
-                v-for="(machine, index) of formattedMachines"
-                v-bind:key="index"
-                @click.native="goToMachineDetails(machine)"
-                v-bind:hostname="machine.os.hostname"
-                v-bind:address="extractIpAddress(machine.networkInterfaces)"
-            >
-            </machine-card>
-        </div>
-        <div class="col-6 self-center q-pa-xl">
-            <p class="text-grey text-h4">Select a machine from the list to see its details</p>
-            <img class="instructions-img" src="https://cdn.quasar.dev/img/mountains.jpg">
-        </div>
+<q-page>
+  <div class="row instructions">
+    <div class="col-6">
+      <machine-card v-for="(machine, index) of formattedMachines" v-bind:key="index" @click.native="goToMachineDetails(machine)" v-bind:hostname="machine.os.hostname" v-bind:address="extractIpAddress(machine.networkInterfaces)">
+      </machine-card>
     </div>
-  </q-page>
+    <div class="col-6 self-center q-pa-xl">
+      <p class="text-grey text-h4">Select a machine from the list to see its details</p>
+      <img class="instructions-img" src="https://cdn.quasar.dev/img/mountains.jpg">
+    </div>
+  </div>
+</q-page>
 </template>
 
 <script>
@@ -35,7 +29,12 @@ export default {
   },
   methods: {
     goToMachineDetails: function (machine) {
-      this.$router.push({ path: 'infoTabs', query: { id: machine } })
+      this.$router.push({
+        path: 'infoTabs',
+        query: {
+          id: machine
+        }
+      })
     },
     removeEmptyProperties (obj) {
       const newObj = {}
@@ -112,11 +111,11 @@ export default {
 
 <style>
 .instructions {
-    text-align: center;
-    height: calc(100vh - 52px);
+  text-align: center;
+  height: calc(100vh - 52px);
 }
 
 .instructions-img {
-    width: 200px;
+  width: 200px;
 }
 </style>
