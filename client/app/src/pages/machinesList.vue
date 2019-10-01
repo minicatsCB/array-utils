@@ -2,7 +2,7 @@
 <q-page>
   <div class="row instructions">
     <div class="col-6">
-      <machine-card v-for="(machine, index) of formattedMachines" v-bind:key="index" @click.native="goToMachineDetails(machine)" v-bind:hostname="machine.os.hostname" v-bind:address="extractIpAddress(machine.networkInterfaces)">
+      <machine-card v-for="(machine, index) of machines" v-bind:key="index" @click.native="goToMachineDetails(machine)" v-bind:hostname="machine.os.hostname" v-bind:address="extractIpAddress(machine.networkInterfaces)">
       </machine-card>
     </div>
     <div class="col-6 self-center q-pa-xl">
@@ -20,8 +20,7 @@ export default {
   name: 'machines',
   data () {
     return {
-      originalMachines: [],
-      formattedMachines: []
+      machines: []
     }
   },
   created: function () {
@@ -88,9 +87,9 @@ export default {
     loadData () {
       this.$axios.get('http://localhost:3000/data')
         .then((response) => {
-          this.originalMachines = response.data
-          for (let machine of this.originalMachines) {
-            this.formattedMachines.push(this.formatMchineData(machine))
+          let originalMachines = response.data
+          for (let machine of originalMachines) {
+            this.machines.push(this.formatMchineData(machine))
           }
         })
         .catch((err) => {
