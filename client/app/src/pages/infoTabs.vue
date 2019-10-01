@@ -69,53 +69,13 @@ export default {
   data () {
     return {
       tab: 'os',
-      machineData: {
-        os: {
-          arch: '',
-          hostname: '',
-          platform: '',
-          release: '',
-          type: ''
-        },
-        userInfo: {},
-        networkInterfaces: {},
-        env: {}
-      }
-    }
-  },
-  methods: {
-    removeEmptyProperties (obj) {
-      const newObj = {}
-
-      Object.keys(obj).forEach(key => {
-        if (obj[key]) {
-          newObj[key] = obj[key]
-        }
-      })
-
-      return newObj
+      machineData: {}
     }
   },
   created: function () {
     let queryMachine = this.$route.query.id
+    this.machineData = queryMachine
     console.log('Details for machine with ID:', queryMachine.id)
-
-    for (let key in this.machineData.os) {
-      this.machineData.os[key] = queryMachine.data.os[key]
-    }
-
-    this.machineData.userInfo = queryMachine.data.os.userInfo
-
-    let networkInterfaces = queryMachine.data.os.networkInterfaces
-    for (let intf in networkInterfaces) {
-      for (let elem of networkInterfaces[intf]) {
-        if (elem.family === 'IPv4') {
-          this.machineData.networkInterfaces[intf] = elem
-        }
-      }
-    }
-
-    this.machineData.env = this.removeEmptyProperties(queryMachine.data.env)
   }
 }
 </script>

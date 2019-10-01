@@ -3,11 +3,11 @@
     <div class="row instructions">
         <div class="col-6">
             <machine-card
-                v-for="(machine, index) in machines"
+                v-for="(machine, index) of formattedMachines"
                 v-bind:key="index"
                 @click.native="goToMachineDetails(machine)"
-                v-bind:hostname="machine.hostname"
-                v-bind:address="machine.address"
+                v-bind:hostname="machine.os.hostname"
+                v-bind:address="extractIpAddress(machine.networkInterfaces)"
             >
             </machine-card>
         </div>
@@ -26,7 +26,8 @@ export default {
   name: 'machines',
   data () {
     return {
-      machines: []
+      originalMachines: [],
+      formattedMachines: []
     }
   },
   created: function () {
@@ -36,16 +37,61 @@ export default {
     goToMachineDetails: function (machine) {
       this.$router.push({ path: 'infoTabs', query: { id: machine } })
     },
+    removeEmptyProperties (obj) {
+      const newObj = {}
+      Object.keys(obj).forEach(key => {
+        if (obj[key]) {
+          newObj[key] = obj[key]
+        }
+      })
+
+      return newObj
+    },
+    formatMchineData (obj) {
+      let formattedData = {
+        os: {
+          arch: '',
+          hostname: '',
+          platform: '',
+          release: '',
+          type: ''
+        },
+        userInfo: {},
+        networkInterfaces: {},
+        env: {}
+      }
+
+      for (let key in formattedData.os) {
+        formattedData.os[key] = obj.os[key]
+      }
+
+      formattedData.userInfo = obj.os.userInfo
+
+      let networkInterfaces = obj.os.networkInterfaces
+      for (let intf in networkInterfaces) {
+        for (let elem of networkInterfaces[intf]) {
+          if (elem.family === 'IPv4') {
+            formattedData.networkInterfaces[intf] = elem
+          }
+        }
+      }
+
+      formattedData.env = this.removeEmptyProperties(obj.env)
+
+      return formattedData
+    },
+    extractIpAddress (intfs) {
+      const disallowedIntf = 'lo'
+      const filteredName = Object.keys(intfs).filter(key => !(key === disallowedIntf))[0]
+
+      return intfs[filteredName].address
+    },
     loadData () {
       this.$axios.get('http://localhost:3000/data')
         .then((response) => {
-          for (let machine of response.data) {
-            this.machines.push({
-              id: machine.id,
-              hostname: machine.os.hostname,
-              address: machine.os.networkInterfaces.enp0s3[0].address,
-              data: machine
-            })
+          this.originalMachines = response.data
+          for (let machine of this.originalMachines) {
+            this.formattedMachines.push(this.formatMchineData(machine))
           }
         })
         .catch((err) => {
