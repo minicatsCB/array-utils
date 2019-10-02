@@ -17,9 +17,10 @@ app.get("/data", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-    console.log("Received data:", req.body);
+    let msg = `Data from plugin '${req.header("X-Plugin-Type")}' received successfully.`;
+    console.log(msg);
     controller.saveData(req.body);
-    res.send("Hello World!");
+    res.status(200).send(msg);
 });
 
 app.listen(port, () => {

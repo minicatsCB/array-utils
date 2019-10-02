@@ -24,7 +24,7 @@ plugins.map(plugin => {
     runPlugin(plugin).then(data => {
         let postData = JSON.stringify(data, null, 2);
         console.log("Sending data:", postData);
-        core.sendData(postData);
+        core.sendData(postData, plugin.key);
     });
 });
 
