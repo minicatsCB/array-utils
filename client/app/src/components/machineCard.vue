@@ -1,13 +1,13 @@
 <template>
-    <q-card class="my-card q-ma-md">
-      <q-card-section>
-        <q-icon name="computer" color="lime" size="md" />
-      </q-card-section>
-      <q-card-section class="summary absolute-bottom text-right text-body2">
-        <div>{{ hostname }}</div>
-        <div>{{ address }}</div>
-      </q-card-section>
-    </q-card>
+<q-card class="my-card q-ma-md">
+  <q-card-section>
+    <q-icon name="computer" color="lime" size="md" />
+  </q-card-section>
+  <q-card-section class="summary absolute-bottom text-right text-body2">
+    <div>{{ hostname }}</div>
+    <div>{{ address }}</div>
+  </q-card-section>
+</q-card>
 </template>
 
 <script>
