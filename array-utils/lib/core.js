@@ -1,7 +1,7 @@
 const http = require('http');
 
 let core = {
-	sendData: function(data, pluginType) {
+	sendData: function(data, pluginType, machineId) {
 		// NOTE: temporary harcoded to localhost for testing purposes
 		const options = {
 			hostname: '127.0.0.1',
@@ -11,7 +11,8 @@ let core = {
 			headers: {
 				'Content-Type': 'application/json',
 				'Content-Length': Buffer.byteLength(data),
-				'X-Plugin-Type': pluginType
+				'X-Plugin-Type': pluginType,
+				'X-Machine-Id': machineId
 			}
 		};
 		const req = http.request(options, (res) => {

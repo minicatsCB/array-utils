@@ -13,27 +13,19 @@ let database = {
         console.log("Getting data from database...");
         return db.get("data").value();
     },
-    saveData: function(data) {
+    saveData: function(data, pluginType, machineId) {
         console.log("Writing data to database...");
-        if(data.os) {
-            // Use the MAC adress to use it as the computer ID
-            let ifaces = data.os.networkInterfaces;
-            macAddress = utils.getMacAddress(ifaces);
-        }
 
-        let id = utils.generateHash(macAddress);
-
-        if(database.machineExists(id)) {
-            let key = Object.keys(data)[0];
+        if(database.machineExists(machineId)) {
               db.get("data")
-                .find({ id: id })
-                .assign({ [key]: data[key]})
+                .find({ id: machineId })
+                .assign({ [pluginType]: data[pluginType] })
                 .write();
 
             console.log("Record for this machine already exists. Updating data...");
         } else {
             db.get("data")
-              .push({ id: id, os: data.os, env: data.env })
+              .push({ id: machineId, [pluginType]: data[pluginType] })
               .write();
 
             console.log("No record for this machine found. Creating new record...");

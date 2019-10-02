@@ -17,9 +17,11 @@ app.get("/data", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-    let msg = `Data from plugin '${req.header("X-Plugin-Type")}' received successfully.`;
+    let pluginType = req.header("X-Plugin-Type");
+    let machineId = req.header("X-Machine-Id");
+    let msg = `Data from plugin '${pluginType}' received successfully.`;
     console.log(msg);
-    controller.saveData(req.body);
+    controller.saveData(req.body, pluginType, machineId);
     res.status(200).send(msg);
 });
 

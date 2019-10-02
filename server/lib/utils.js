@@ -1,19 +1,13 @@
-const crypto = require("crypto");
-
 let utils = {
-    getMacAddress: function (ifaces) {
-        for(iface in ifaces) {
-            for(address of ifaces[iface]) {
-                if (!address.internal) {
-                    if (address.mac) {
-                        return address.mac;
-                    }
-                }
+    removeEmptyProperties: function(obj) {
+        const newObj = {};
+        Object.keys(obj).forEach(key => {
+            if (obj[key]) {
+                newObj[key] = obj[key];
             }
-        }
-    },
-    generateHash: function (str) {
-        return crypto.createHash("md5").update(str).digest("hex");
+        });
+
+        return newObj;
     }
 }
 
