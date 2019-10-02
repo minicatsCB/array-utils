@@ -35,49 +35,6 @@ export default {
         }
       })
     },
-    removeEmptyProperties (obj) {
-      const newObj = {}
-      Object.keys(obj).forEach(key => {
-        if (obj[key]) {
-          newObj[key] = obj[key]
-        }
-      })
-
-      return newObj
-    },
-    formatMchineData (obj) {
-      let formattedData = {
-        os: {
-          arch: '',
-          hostname: '',
-          platform: '',
-          release: '',
-          type: ''
-        },
-        userInfo: {},
-        networkInterfaces: {},
-        env: {}
-      }
-
-      for (let key in formattedData.os) {
-        formattedData.os[key] = obj.os[key]
-      }
-
-      formattedData.userInfo = obj.os.userInfo
-
-      let networkInterfaces = obj.os.networkInterfaces
-      for (let intf in networkInterfaces) {
-        for (let elem of networkInterfaces[intf]) {
-          if (elem.family === 'IPv4') {
-            formattedData.networkInterfaces[intf] = elem
-          }
-        }
-      }
-
-      formattedData.env = this.removeEmptyProperties(obj.env)
-
-      return formattedData
-    },
     extractIpAddress (intfs) {
       const disallowedIntf = 'lo'
       const filteredName = Object.keys(intfs).filter(key => !(key === disallowedIntf))[0]
@@ -87,10 +44,8 @@ export default {
     loadData () {
       this.$axios.get('http://localhost:3000/data')
         .then((response) => {
-          let originalMachines = response.data
-          for (let machine of originalMachines) {
-            this.machines.push(this.formatMchineData(machine))
-          }
+          console.log('Machines received sucessfully', response.data)
+          this.machines = response.data
         })
         .catch((err) => {
           this.$q.notify({
