@@ -1,4 +1,3 @@
-const utils = require("./utils");
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
