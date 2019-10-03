@@ -82,23 +82,6 @@ export default {
     let queryMachine = this.$route.query.id
     this.machine = queryMachine
     console.log('Details for machine with ID:', queryMachine.id)
-    this.filterIpv4Adresses()
-  },
-  methods: {
-    filterIpv4Adresses () {
-      let networkInterfaces = this.machine.networkInterfaces
-
-      let filteredNetworkInterfaces = {}
-      for (let intf in networkInterfaces) {
-        for (let elem of networkInterfaces[intf]) {
-          if (elem.family === 'IPv4') {
-            filteredNetworkInterfaces[intf] = elem
-          }
-        }
-      }
-
-      this.machine.networkInterfaces = filteredNetworkInterfaces
-    }
   }
 }
 </script>

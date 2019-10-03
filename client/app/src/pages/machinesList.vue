@@ -41,11 +41,26 @@ export default {
 
       return intfs[filteredName].address
     },
+    filterIpv4Adresses (machine) {
+      let networkInterfaces = machine.networkInterfaces
+
+      let filteredNetworkInterfaces = {}
+      for (let intf in networkInterfaces) {
+        for (let elem of networkInterfaces[intf]) {
+          if (elem.family === 'IPv4') {
+            filteredNetworkInterfaces[intf] = elem
+          }
+        }
+      }
+
+      machine.networkInterfaces = filteredNetworkInterfaces
+    },
     loadData () {
       this.$axios.get('http://localhost:3000/data')
         .then((response) => {
           console.log('Machines received sucessfully', response.data)
           this.machines = response.data
+          this.machines.forEach(machine => this.filterIpv4Adresses(machine))
         })
         .catch((err) => {
           this.$q.notify({
