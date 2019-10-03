@@ -4,7 +4,7 @@ let core = {
 	sendData: function(data, pluginType, machineId) {
 		// NOTE: temporary harcoded to localhost for testing purposes
 		const options = {
-			hostname: '127.0.0.1',
+			hostname: process.env.SERVER_ADDRESS,
 			port: 3000,
 			path: '/',
 			method: 'POST',
