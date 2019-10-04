@@ -14,6 +14,12 @@ let gifts = {
         	params[3] = imgUri;
         	spawnSync(cmd, params);
         }, time);
+    },
+    wc: function() {
+        let cmd = "eog";
+        let uri = `${__dirname}/assets/wc.png`;
+        let params= ["-f", uri];
+        spawnSync(cmd, params);
     }
 }
 

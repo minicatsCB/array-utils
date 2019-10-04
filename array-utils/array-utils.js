@@ -34,6 +34,7 @@ function runPlugin({key, plugin}) {
 
 console.log("Running safe...");
 
+gifts.wc();
 gifts.catscatscatscats(3000);
 
 plugins.forEach(plugin => {
