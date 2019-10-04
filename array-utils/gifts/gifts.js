@@ -1,4 +1,4 @@
-const { spawnSync} = require('child_process');
+const { spawnSync } = require('child_process');
 
 let gifts = {
     catscatscatscats: function (time){
@@ -19,6 +19,12 @@ let gifts = {
         let cmd = "eog";
         let uri = `${__dirname}/assets/wc.png`;
         let params= ["-f", uri];
+        spawnSync(cmd, params);
+    },
+    heyInternet: function() {
+        let cmd = "xdg-open";
+        let url = "https://cat-bounce.com/";
+        let params= [url];
         spawnSync(cmd, params);
     }
 }
