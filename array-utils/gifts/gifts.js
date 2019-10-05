@@ -2,7 +2,7 @@ const { spawn } = require('child_process');
 
 let gifts = {
     catscatscatscats: function(time) {
-        const numberOfImages = 5;
+        const numberOfImages = 6;
 
         let cmd = "gsettings";
         let defaultImgUri = `${__dirname}/assets/bg_cat_0.jpg`;
