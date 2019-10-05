@@ -7,7 +7,7 @@
     </div>
     <div class="col-6 self-center q-pa-xl">
       <p class="text-grey text-h4">Select a machine from the list to see its details</p>
-      <img class="instructions-img" src="https://cdn.quasar.dev/img/mountains.jpg">
+      <img class="instructions-img" src="assets/computer.png">
     </div>
   </div>
 </q-page>
