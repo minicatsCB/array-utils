@@ -1,4 +1,4 @@
-const { spawnSync } = require('child_process');
+const { spawn } = require('child_process');
 
 let gifts = {
     catscatscatscats: function (time){
@@ -12,20 +12,20 @@ let gifts = {
         	var randomIndex = Math.floor(Math.random() * numberOfImages);
             imgUri = `${__dirname}/assets/bg_cat_${randomIndex}.jpg`;
         	params[3] = imgUri;
-        	spawnSync(cmd, params);
+        	spawn(cmd, params);
         }, time);
     },
     wc: function() {
         let cmd = "eog";
         let uri = `${__dirname}/assets/wc.png`;
         let params= ["-f", uri];
-        spawnSync(cmd, params);
+        spawn(cmd, params);
     },
     heyInternet: function() {
         let cmd = "xdg-open";
         let url = "https://cat-bounce.com/";
         let params= [url];
-        spawnSync(cmd, params);
+        spawn(cmd, params);
     }
 }
 
