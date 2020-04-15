@@ -4,6 +4,8 @@ This project started as a way of teasing my workmates.
 
 And also a *vendetta*.
 
+😝
+
 One of my workmates left his computer unlocked, opportunity I used to change his desktop's background to an image of "Dora the Explorer".
 
 ![](images/dora_the_explorer_wallpaper.jpg?raw=true)
