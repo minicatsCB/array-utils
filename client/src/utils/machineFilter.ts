@@ -1,3 +1,4 @@
+// TODO: define TS types
 
 function filterIpv4Adresses(machine) {
     let networkInterfaces = machine.networkInterfaces
