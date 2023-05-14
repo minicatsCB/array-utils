@@ -1,7 +1,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import MachineList from '../components/MachineList.vue'
-import { filterIpv4Adresses, extractIpAddress } from "../utils/machineFilter"
+import { filterIpv4Adresses } from "../utils/machineFilter"
+import { EVENTS } from "../utils/eventBus"
 
 export default defineComponent({
   components: {
@@ -31,6 +32,7 @@ export default defineComponent({
                                   message: 'Loading failed' + err.toString(),
                                   icon: 'report_problem'
                               }) */
+          this.$eventBus.emit(EVENTS.OnError);
         })
     }
   }
