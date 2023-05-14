@@ -7,13 +7,8 @@ export default defineComponent({
     components: {
         MachineCard
     },
-    data() {
-        return {
-            machines: []
-        }
-    },
-    created: function () {
-        this.loadData()
+    props: {
+        machines: []
     },
     methods: {
         goToMachineDetails: function (machine) {
@@ -29,37 +24,6 @@ export default defineComponent({
             const filteredName = Object.keys(intfs).filter(key => !(key === disallowedIntf))[0]
 
             return intfs[filteredName].address
-        },
-        filterIpv4Adresses(machine) {
-            let networkInterfaces = machine.networkInterfaces
-
-            let filteredNetworkInterfaces = {}
-            for (let intf in networkInterfaces) {
-                for (let elem of networkInterfaces[intf]) {
-                    if (elem.family === 'IPv4') {
-                        filteredNetworkInterfaces[intf] = elem
-                    }
-                }
-            }
-
-            machine.networkInterfaces = filteredNetworkInterfaces
-        },
-        loadData() {
-            this.$axios.get('http://localhost:3000/data')
-                .then((response) => {
-                    console.log('Machines received sucessfully', response.data)
-                    this.machines = response.data
-                    this.machines.forEach(machine => this.filterIpv4Adresses(machine))
-                })
-                .catch((err) => {
-                    // TODO: adapt to use something different from Quasar
-/*                     this.$q.notify({
-                        color: 'negative',
-                        position: 'top',
-                        message: 'Loading failed' + err.toString(),
-                        icon: 'report_problem'
-                    }) */
-                })
         }
     }
 });
@@ -67,7 +31,7 @@ export default defineComponent({
 
 <template>
     <v-container>
-        <div class="row instructions">
+        <div class="row">
             <div class="col-6">
                 <machine-card v-for="(machine, index) of machines" v-bind:key="index"
                     @click.native="goToMachineDetails(JSON.stringify(machine))" v-bind:hostname="machine.os.hostname"
@@ -78,14 +42,3 @@ export default defineComponent({
         </div>
     </v-container>
 </template>
-    
-<style lang="postcss">
-.instructions {
-    text-align: center;
-    height: calc(100vh - 52px);
-}
-
-.instructions-img {
-    width: 200px;
-}
-</style>

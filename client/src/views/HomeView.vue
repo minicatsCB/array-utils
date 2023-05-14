@@ -5,6 +5,47 @@ import MachineList from '../components/MachineList.vue'
 export default defineComponent({
   components: {
     MachineList
+  },
+  data() {
+        return {
+            machines: []
+        }
+  },
+  created: function () {
+    //this.loadData()
+  },
+  methods: {
+    filterIpv4Adresses(machine) {
+      let networkInterfaces = machine.networkInterfaces
+
+      let filteredNetworkInterfaces = {}
+      for (let intf in networkInterfaces) {
+        for (let elem of networkInterfaces[intf]) {
+          if (elem.family === 'IPv4') {
+            filteredNetworkInterfaces[intf] = elem
+          }
+        }
+      }
+
+      machine.networkInterfaces = filteredNetworkInterfaces
+    },
+    loadData() {
+      this.$axios.get('http://localhost:3000/data')
+        .then((response) => {
+          console.log('Machines received sucessfully', response.data)
+          this.machines = response.data
+          this.machines.forEach(machine => this.filterIpv4Adresses(machine))
+        })
+        .catch((err) => {
+          // TODO: adapt to use something different from Quasar
+          /*                     this.$q.notify({
+                                  color: 'negative',
+                                  position: 'top',
+                                  message: 'Loading failed' + err.toString(),
+                                  icon: 'report_problem'
+                              }) */
+        })
+    }
   }
 });
 </script>
@@ -21,15 +62,19 @@ export default defineComponent({
     </v-row>
     <v-row>
       <v-col cols=12 sm=6>
-        <div class="col-6 self-center q-pa-xl">
-          <p class="text-grey text-h4">Select a machine from the list to see its details</p>
-          <img class="instructions-img" src="@/assets/computer.png">
-        </div>
-      </v-col>
-      <v-col cols=12 sm=6>
         Máquinas
         <MachineList />
+      </v-col>
+      <v-col cols=12 sm=6 class="text-center">
+          <p class="text-grey text-h4">Select a machine from the list to see its details</p>
+          <img class="instructions-img" src="@/assets/computer.png">
       </v-col>
     </v-row>    
   </v-container>
 </template>
+
+<style scoped>
+.instructions-img {
+    width: 200px;
+}
+</style>
