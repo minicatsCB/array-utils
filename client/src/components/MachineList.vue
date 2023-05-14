@@ -66,7 +66,7 @@ export default defineComponent({
 </script>
 
 <template>
-    <q-page>
+    <v-container>
         <div class="row instructions">
             <div class="col-6">
                 <machine-card v-for="(machine, index) of machines" v-bind:key="index"
@@ -74,12 +74,9 @@ export default defineComponent({
                     v-bind:address="extractIpAddress(machine.networkInterfaces)">
                 </machine-card>
             </div>
-            <div class="col-6 self-center q-pa-xl">
-                <p class="text-grey text-h4">Select a machine from the list to see its details</p>
-                <img class="instructions-img" src="@/assets/computer.png">
-            </div>
+            
         </div>
-    </q-page>
+    </v-container>
 </template>
     
 <style lang="postcss">

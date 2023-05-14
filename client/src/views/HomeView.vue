@@ -5,55 +5,31 @@ import MachineList from '../components/MachineList.vue'
 export default defineComponent({
   components: {
     MachineList
-  },
-  data () {
-    return {}
   }
 });
 </script>
 
 <template>
-  <main class="bg-black" view="hHh lpr fff">
-    <div reveal class="bg-black header"> <!-- q-header -->
-      <div> <!-- q-toolbar -->
-        <h1 class="text-right text-uppercase text-h6 q-pa-xs fade-in-left"> <!-- q-toolbar-title -->
-          Hacker's dashboard
-        </h1>
-      </div>
-      <div class="flicker" indeterminate color="lime" size="xs"/> <!-- q-linear-progress -->
-    </div>
-    <MachineList />  
-  </main>
-  </template>
-
-<style>
-@keyframes flickerAnimation {
-  0%   { opacity:1; }
-  40%, 90%  { opacity:0; }
-  100% { opacity:1; }
-}
-
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-      transform: translate3d(-100%, 0, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.flicker {
-    animation: flickerAnimation 5s infinite;
-}
-
-.fade-in-left {
-  animation: fadeIn 1s;
-}
-
-.header {
-    height: 52px;
-}
-</style>
+  <v-container>
+    <v-row>
+        <v-col cols="12">
+          <v-progress-linear
+          indeterminate
+          color="green"
+        ></v-progress-linear>
+        </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols=12 sm=6>
+        <div class="col-6 self-center q-pa-xl">
+          <p class="text-grey text-h4">Select a machine from the list to see its details</p>
+          <img class="instructions-img" src="@/assets/computer.png">
+        </div>
+      </v-col>
+      <v-col cols=12 sm=6>
+        Máquinas
+        <MachineList />
+      </v-col>
+    </v-row>    
+  </v-container>
+</template>
