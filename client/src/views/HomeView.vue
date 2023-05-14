@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import MachineList from '../components/MachineList.vue'
+import { filterIpv4Adresses, extractIpAddress } from "../utils/machineFilter"
 
 export default defineComponent({
   components: {
@@ -12,29 +13,15 @@ export default defineComponent({
         }
   },
   created: function () {
-    //this.loadData()
+    this.loadData()
   },
   methods: {
-    filterIpv4Adresses(machine) {
-      let networkInterfaces = machine.networkInterfaces
-
-      let filteredNetworkInterfaces = {}
-      for (let intf in networkInterfaces) {
-        for (let elem of networkInterfaces[intf]) {
-          if (elem.family === 'IPv4') {
-            filteredNetworkInterfaces[intf] = elem
-          }
-        }
-      }
-
-      machine.networkInterfaces = filteredNetworkInterfaces
-    },
     loadData() {
       this.$axios.get('http://localhost:3000/data')
         .then((response) => {
           console.log('Machines received sucessfully', response.data)
           this.machines = response.data
-          this.machines.forEach(machine => this.filterIpv4Adresses(machine))
+          this.machines.forEach(machine => filterIpv4Adresses(machine))
         })
         .catch((err) => {
           // TODO: adapt to use something different from Quasar

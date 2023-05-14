@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import MachineCard from './MachineCard.vue';
+import { extractIpAddress } from "../utils/machineFilter"
 
 export default defineComponent({
     name: 'machines',
@@ -19,11 +20,8 @@ export default defineComponent({
                 }
             })
         },
-        extractIpAddress(intfs) {
-            const disallowedIntf = 'lo'
-            const filteredName = Object.keys(intfs).filter(key => !(key === disallowedIntf))[0]
-
-            return intfs[filteredName].address
+        getAddress: function(intfs) {
+            return extractIpAddress(intfs);
         }
     }
 });
@@ -35,7 +33,7 @@ export default defineComponent({
             <div class="col-6">
                 <machine-card v-for="(machine, index) of machines" v-bind:key="index"
                     @click.native="goToMachineDetails(JSON.stringify(machine))" v-bind:hostname="machine.os.hostname"
-                    v-bind:address="extractIpAddress(machine.networkInterfaces)">
+                    v-bind:address="getAddress(machine.networkInterfaces)">
                 </machine-card>
             </div>
             
