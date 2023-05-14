@@ -50,7 +50,7 @@ export default defineComponent({
     <v-row>
       <v-col cols=12 sm=6>
         Máquinas
-        <MachineList />
+        <MachineList :machines="machines" />
       </v-col>
       <v-col cols=12 sm=6 class="text-center">
           <p class="text-grey text-h4">Select a machine from the list to see its details</p>
