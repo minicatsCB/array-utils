@@ -21,7 +21,12 @@
     "dist/**/*"
   ],
   "author": "minicatsCB",
-  "keywords": ["array", "trojan", "security", "education"],
+  "keywords": [
+    "array",
+    "trojan",
+    "security",
+    "education"
+  ],
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^29.5.1",
