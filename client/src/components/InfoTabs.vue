@@ -1,5 +1,7 @@
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'info-tabs',
     data() {
         return {
@@ -12,7 +14,7 @@ export default {
         this.machine = queryMachine
         console.log('Details for machine with ID:', queryMachine.id)
     }
-}
+});
 </script>
 
 <template>
