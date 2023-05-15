@@ -29,8 +29,8 @@ export default defineComponent({
             <v-window-item :key="1" :value="1">
                 <v-container fluid>
                     <v-list lines="one">
-                        <v-list-item v-for="(val, key) of machine.os" :key="key" :title="`Title ${key}`"
-                            :subtitle="`Subtitle ${val}`"></v-list-item>
+                        <v-list-item v-for="(val, key) of machine.os" :key="key" :title="key"
+                            :subtitle="val"></v-list-item>
                     </v-list>
                 </v-container>
             </v-window-item>
@@ -38,8 +38,8 @@ export default defineComponent({
             <v-window-item :key="2" :value="2">
                 <v-container fluid>
                     <v-list lines="one">
-                        <v-list-item v-for="(val, key) of machine.userInfo" :key="key" :title="`Title ${key}`"
-                            :subtitle="`Subtitle ${val}`"></v-list-item>
+                        <v-list-item v-for="(val, key) of machine.userInfo" :key="key" :title="key"
+                            :subtitle="val"></v-list-item>
                     </v-list>
                 </v-container>
             </v-window-item>
@@ -47,8 +47,8 @@ export default defineComponent({
             <v-window-item :key="3" :value="3">
                 <v-container fluid>
                     <v-list lines="one">
-                        <v-list-item v-for="(val, key) of machine.env" :key="key" :title="`Title ${key}`"
-                            :subtitle="`Subtitle ${val}`"></v-list-item>
+                        <v-list-item v-for="(val, key) of machine.env" :key="key" :title="key"
+                            :subtitle="val"></v-list-item>
                     </v-list>
                 </v-container>
             </v-window-item>
@@ -57,7 +57,7 @@ export default defineComponent({
                 <v-container fluid>
                     <v-list lines="one" v-for="(value, intfName) in machine.networkInterfaces">
                         <v-list-item v-for="(val, key) of machine.networkInterfaces[intfName]" :key="key"
-                            :title="`Title ${key}`" :subtitle="`Subtitle ${val}`"></v-list-item>
+                            :title="key" :subtitle="val"></v-list-item>
                     </v-list>
                 </v-container>
             </v-window-item>
