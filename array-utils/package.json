@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "jest --config jestconfig.json",
-    "postinstall": "node array-utils.js",
+    "postinstall": "echo TODO: update this command",
     "dev": "ts-node src/index",
     "build": "tsc",
     "lint": "tslint -p tsconfig.json",
