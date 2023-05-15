@@ -6,9 +6,10 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/layouts/DefaultLayout.vue'),
+      redirect: 'home',
       children: [
         {
-          path: '',
+          path: 'home',
           name: 'Home',
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
