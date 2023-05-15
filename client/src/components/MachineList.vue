@@ -14,7 +14,7 @@ export default defineComponent({
     methods: {
         goToMachineDetails: function (machine) {
             this.$router.push({
-                path: 'infoTabs',
+                path: 'details',
                 query: {
                     id: machine
                 }
