@@ -18,7 +18,7 @@ const router = createRouter({
         {
           path: 'infoTabs',
           name: 'Info Tabs',
-          component: () => import(/* webpackChunkName: "home" */ '@/components/InfoTabs.vue'),
+          component: () => import(/* webpackChunkName: "infoTabs" */ '@/views/InfoTabs.vue'),
         }
       ],
     },
