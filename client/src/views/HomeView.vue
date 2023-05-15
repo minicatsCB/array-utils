@@ -51,8 +51,10 @@ export default defineComponent({
     </v-row>
     <v-row>
       <v-col cols=12 sm=6>
-        Máquinas
-        <MachineList :machines="machines" />
+        <h2 v-if="machines?.length > 0">
+          <MachineList :machines="machines" />
+        </h2>
+        <h2 v-else>No machines to show</h2>
       </v-col>
       <v-col cols=12 sm=6 class="text-center">
           <p class="text-grey text-h4">Select a machine from the list to see its details</p>
