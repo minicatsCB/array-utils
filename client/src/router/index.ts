@@ -15,6 +15,11 @@ const router = createRouter({
           // which is lazy-loaded when the route is visited.
           component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
         },
+        {
+          path: 'infoTabs',
+          name: 'Info Tabs',
+          component: () => import(/* webpackChunkName: "home" */ '@/components/InfoTabs.vue'),
+        }
       ],
     },
   ]
