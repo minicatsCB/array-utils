@@ -29,14 +29,9 @@ export default defineComponent({
 
 <template>
     <v-container>
-        <div class="row">
-            <div class="col-6">
-                <machine-card v-for="(machine, index) of machines" v-bind:key="index"
-                    @click.native="goToMachineDetails(JSON.stringify(machine))" v-bind:hostname="machine.os.hostname"
-                    v-bind:address="getAddress(machine.networkInterfaces)">
-                </machine-card>
-            </div>
-            
-        </div>
+        <machine-card v-for="(machine, index) of machines" v-bind:key="index"
+            @click.native="goToMachineDetails(JSON.stringify(machine))" v-bind:hostname="machine.os.hostname"
+            v-bind:address="getAddress(machine.networkInterfaces)">
+        </machine-card>
     </v-container>
 </template>
