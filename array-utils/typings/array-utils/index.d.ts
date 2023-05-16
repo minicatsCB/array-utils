@@ -13,4 +13,9 @@ declare module "array-utils" {
 
     type NetworkInterfacesDetails = NodeJS.Dict<NetworkInterfaceInfoIPv4>
     type EnvDetails = NodeJS.Dict<string>
+
+    interface CustomPlugin {
+        key: string;
+        plugin: NodeRequire;
+    }
 }
