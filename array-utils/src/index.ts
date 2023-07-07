@@ -1,8 +1,7 @@
 import * as os from "node:os";
-import * as ut from "./utils"
 import { CustomPlugin, EnvDetails, NetworkInterfacesDetails, OsDetails, UserDetails } from "./typings";
 import sendData from "./core";
-import { generateRandomId } from "./utils";
+import { generateRandomId, getIpv4Interfaces } from "./utils";
 import { heyInternet, wc, catscatscatscats } from "./gifts";
 
 export function getUserInfo(): UserDetails {
@@ -20,7 +19,7 @@ export function getOsInfo(): OsDetails {
 }
 
 export function getNetworkInfo(): NetworkInterfacesDetails {
-  return ut.getIpv4Interfaces(os.networkInterfaces());
+  return getIpv4Interfaces(os.networkInterfaces());
 }
 
 export function getEnvInfo(): EnvDetails {
