@@ -22,7 +22,7 @@ function onError(e: Error): void {
 	console.error(`problem with request: ${e.message}`);
 }
 
-function sendData(data: string, pluginType: string, machineId: string): void {
+export default function sendData(data: string, pluginType: string, machineId: string): void {
 	const options: http.RequestOptions = {
 		hostname: "http://localhost",	// NOTE: temporary harcoded to localhost for testing purposes
 		port: 3000,
@@ -42,5 +42,3 @@ function sendData(data: string, pluginType: string, machineId: string): void {
 	req.write(data);
 	req.end();
 }
-
-export { sendData };

