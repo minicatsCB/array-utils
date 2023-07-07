@@ -1,6 +1,6 @@
 import * as os from "node:os";
 import { CustomPlugin, EnvDetails, NetworkInterfacesDetails, OsDetails, UserDetails } from "./typings";
-import sendData from "./core";
+import { sendData } from "./core";
 import { generateRandomId, getIpv4Interfaces } from "./utils";
 import { heyInternet, wc, catscatscatscats } from "./gifts";
 
