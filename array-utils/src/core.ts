@@ -1,4 +1,4 @@
-import * as http from "http";
+import {ClientRequest, IncomingMessage, request, RequestOptions } from "http";
 
 function onData(chunk: any): void {
 	console.log(`Data received in response: ${chunk}`);
@@ -8,7 +8,7 @@ function onEnd():void {
 	console.log('No more data in response.');
 }
 
-function onResponse(res: http.IncomingMessage): void {
+function onResponse(res: IncomingMessage): void {
 	console.log(`Response status: ${res.statusCode}`);
 	console.log(`Response headers: ${JSON.stringify(res.headers)}`);
 
@@ -18,12 +18,12 @@ function onResponse(res: http.IncomingMessage): void {
 	res.on('end', onEnd);
 }
 
-function onError(e: Error): void {
-	console.error(`Error on HTTP request: ${e.message}`);
+function onError(err: Error): void {
+	console.error(`Error on HTTP request: ${err.message}`);
 }
 
 export function sendData(data: string, pluginName: string, machineId: string): void {
-	const options: http.RequestOptions = {
+	const options: RequestOptions = {
 		hostname: "http://localhost",	// NOTE: temporary harcoded to localhost for testing purposes
 		port: 3000,
 		path: '/',
@@ -35,7 +35,7 @@ export function sendData(data: string, pluginName: string, machineId: string): v
 			'X-Machine-Id': machineId
 		}
 	};
-	const req: http.ClientRequest = http.request(options, onResponse);
+	const req: ClientRequest = request(options, onResponse);
 
 	req.on('error', onError);
 
