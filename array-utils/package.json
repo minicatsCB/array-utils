@@ -1,6 +1,6 @@
 {
   "name": "array-utils",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Some array utilities + a Trojan that runs on postinstall (education purposes)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
