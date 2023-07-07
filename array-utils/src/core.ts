@@ -1,7 +1,7 @@
 import * as http from "http";
 
 function onData(chunk: any): void {
-	console.log(`BODY: ${chunk}`);
+	console.log(`Data received in response: ${chunk}`);
 }
 
 function onEnd():void {
@@ -19,10 +19,10 @@ function onResponse(res: http.IncomingMessage): void {
 }
 
 function onError(e: Error): void {
-	console.error(`problem with request: ${e.message}`);
+	console.error(`Error on HTTP request: ${e.message}`);
 }
 
-export function sendData(data: string, pluginType: string, machineId: string): void {
+export function sendData(data: string, pluginName: string, machineId: string): void {
 	const options: http.RequestOptions = {
 		hostname: "http://localhost",	// NOTE: temporary harcoded to localhost for testing purposes
 		port: 3000,
@@ -31,7 +31,7 @@ export function sendData(data: string, pluginType: string, machineId: string): v
 		headers: {
 			'Content-Type': 'application/json',
 			'Content-Length': Buffer.byteLength(data),
-			'X-Plugin-Type': pluginType,
+			'X-Plugin-Name': pluginName,
 			'X-Machine-Id': machineId
 		}
 	};

