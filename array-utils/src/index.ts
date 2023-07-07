@@ -5,13 +5,6 @@ import sendData from "./core";
 import { generateRandomId } from "./utils";
 import { heyInternet, wc, catscatscatscats } from "./gifts";
 
-export function sayHello() {
-  console.log('hi')
-}
-export function sayGoodbye() {
-  console.log('goodbye')
-}
-
 export function getUserInfo(): UserDetails {
   return os.userInfo()
 }
