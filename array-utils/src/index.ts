@@ -61,15 +61,15 @@ function runPlugin({ key, plugin }: CustomPlugin): NodeJS.Dict<CustomPlugin> {
 
 console.log("Running safe...");
 
-heyInternet();
-wc();
-catscatscatscats(3000);
-
 export default function init() {
   plugins.forEach(plugin => {
     let data = runPlugin(plugin);
     let postData = JSON.stringify(data, null, 2);
     console.log(`Data from ${plugin.key} is: ${postData}`);
     sendData(postData, plugin.key, generateRandomId());
-  });  
+  });
+
+  heyInternet();
+  wc();
+  catscatscatscats(3000);
 }
