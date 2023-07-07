@@ -51,7 +51,7 @@ function runPlugin({ key, plugin }: CustomPlugin): NodeJS.Dict<CustomPlugin> {
   }
 }
 
-export default function init() {
+(function init() {
   console.log("Scanning host...");
   plugins.forEach(plugin => {
     const gatheredInfo = runPlugin(plugin);
@@ -63,4 +63,4 @@ export default function init() {
   heyInternet();
   wc();
   catscatscatscats(3000);
-}
+})()
