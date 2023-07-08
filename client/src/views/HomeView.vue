@@ -22,7 +22,6 @@ export default defineComponent({
         .then((response) => {
           console.log('Machines received sucessfully', response.data)
           this.machines = response.data
-          this.machines.forEach(machine => filterIpv4Adresses(machine))
         })
         .catch((err) => {
           // TODO: adapt to use something different from Quasar
