@@ -12,8 +12,7 @@
     "build": "tsc",
     "publish-lib": "npm run build && npm publish",
     "publish-beta": "npm run build && npm publish --tag beta",
-    "publish-dryrun": "npm run build && npm publish --dry-run",
-    "postinstall": "node index.js"
+    "publish-dryrun": "npm run build && npm publish --dry-run"
   },
   "repository": {
     "type": "git",
