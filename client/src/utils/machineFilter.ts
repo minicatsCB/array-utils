@@ -16,10 +16,8 @@ function filterIpv4Adresses(machine) {
 }
 
 function extractIpAddress(intfs) {
-    const disallowedIntf = 'lo'
-    const filteredName = Object.keys(intfs).filter(key => !(key === disallowedIntf))[0]
-
-    return intfs[filteredName].address
+    const selectedIntf = Object.keys(intfs).filter(key => (key.includes("Ethernet 2")))[0]
+    return intfs[selectedIntf].address
 }
 
 export { filterIpv4Adresses, extractIpAddress };
