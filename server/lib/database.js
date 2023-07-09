@@ -12,6 +12,10 @@ let database = {
         console.log("Getting data from database...");
         return db.get("data").value();
     },
+    getData: function(id) {
+        console.log("Getting data by id from database...");
+        return db.get("data").find({"id": id}).value();
+    },
     saveData: function(data, pluginType, machineId) {
         console.log("Writing data to database...");
 

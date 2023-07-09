@@ -16,6 +16,11 @@ app.get("/data", (req, res) => {
     res.send(data);
 });
 
+app.get("/data/:id", (req, res) => {
+    let data = controller.getData(req.params.id);
+    res.send(data);
+});
+
 app.post("/", (req, res) => {
     let pluginType = req.header("X-Plugin-Type");
     let machineId = req.header("X-Machine-Id");
