@@ -1,4 +1,6 @@
 <script lang="ts">
+import { EVENTS } from '@/utils/eventBus';
+import type { Machine, ReqData } from '@/utils/models';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -6,13 +8,34 @@ export default defineComponent({
     data() {
         return {
             tab: 'os',
-            machine: {}
+            machine: {} as Machine
         }
     },
+    props: {
+        id: { type: Number, required: true }
+    },
     created: function () {
-        let queryMachine = JSON.parse(this.$route.query.id)
-        this.machine = queryMachine
-        console.log('Details for machine with ID:', queryMachine.id)
+        this.loadData();
+        console.log('Details for machine with ID:', this.id)
+    },
+    methods: {
+        loadData(): void {
+            this.$axios.get('http://localhost:3000/data/' + this.id)
+                .then((response: ReqData<Machine>) => {
+                    console.log('Machine received sucessfully', response.data)
+                    this.machine = response.data
+                })
+                .catch((err) => {
+                    // TODO: adapt to use something different from Quasar
+                    /*                     this.$q.notify({
+                                            color: 'negative',
+                                            position: 'top',
+                                            message: 'Loading failed' + err.toString(),
+                                            icon: 'report_problem'
+                                        }) */
+                    this.$eventBus.emit(EVENTS.OnError);
+                })
+        }
     }
 });
 </script>
@@ -55,9 +78,10 @@ export default defineComponent({
 
             <v-window-item :key="4" :value="4">
                 <v-container fluid>
-                    <v-list lines="one" v-for="(value, intfName) in machine.networkInterfaces">
-                        <v-list-item v-for="(val, key) of machine.networkInterfaces[intfName]" :key="key"
-                            :title="key" :subtitle="val"></v-list-item>
+                    <v-list lines="one" v-for="(info, intfName) in machine.networkInterfaces">
+                        {{intfName}}
+                        <v-list-item v-for="(val, key) of info" :key="key"
+                            :title="key" :subtitle="val?.toString()"></v-list-item>
                     </v-list>
                 </v-container>
             </v-window-item>
