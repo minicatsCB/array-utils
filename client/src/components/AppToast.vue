@@ -15,15 +15,15 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     props: {
-        modelValue: Boolean
+        modelValue: { type: Boolean, required: true }
     },
     emits: [EVENTS.OnModelChanged],
     computed: {
         isVisible: {
-            get() {
+            get(): boolean {
                 return this.modelValue
             },
-            set(value: boolean) {
+            set(value: boolean): void {
                 this.$emit(EVENTS.OnModelChanged, value)
             }
         }
