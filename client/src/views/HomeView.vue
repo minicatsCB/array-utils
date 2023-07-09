@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import MachineList from '../components/MachineList.vue'
-import { filterIpv4Adresses } from "../utils/machineFilter"
 import { EVENTS } from "../utils/eventBus"
+import type { Machine, ReqData } from '@/utils/models';
 
 export default defineComponent({
   components: {
@@ -10,16 +10,16 @@ export default defineComponent({
   },
   data() {
         return {
-            machines: []
+            machines: [] as Array<Machine>
         }
   },
-  created: function () {
+  created: function (): void {
     this.loadData()
   },
   methods: {
-    loadData() {
+    loadData(): void {
       this.$axios.get('http://localhost:3000/data')
-        .then((response) => {
+        .then((response: ReqData<Array<Machine>>) => {
           console.log('Machines received sucessfully', response.data)
           this.machines = response.data
         })
