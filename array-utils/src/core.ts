@@ -26,7 +26,7 @@ export function sendData(data: string, pluginName: string, machineId: string): v
 	const options: RequestOptions = {
 		hostname: process.env.SERVER_HOST,
 		port: 3000,
-		path: '/',
+		path: '/data',
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
