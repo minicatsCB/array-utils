@@ -12,7 +12,7 @@ let database = {
         console.log("Getting data from database...");
         return db.get("data").value();
     },
-    getData: function(id) {
+    getDataById: function(id) {
         console.log("Getting data by id from database...");
         return db.get("data").find({"id": id}).value();
     },
