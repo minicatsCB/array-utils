@@ -24,7 +24,7 @@ function onError(err: Error): void {
 
 export function sendData(data: string, pluginName: string, machineId: string): void {
 	const options: RequestOptions = {
-		hostname: "localhost",	// NOTE: temporary harcoded to localhost for testing purposes
+		hostname: process.env.SERVER_HOST,
 		port: 3000,
 		path: '/',
 		method: 'POST',
