@@ -20,7 +20,7 @@ export default defineComponent({
     },
     methods: {
         loadData(): void {
-            this.$axios.get('http://localhost:3000/data/' + this.id)
+            this.$axios.get(import.meta.env.VITE_SERVER_HOST + "/data/" + this.id)
                 .then((response: ReqData<Machine>) => {
                     console.log('Machine received sucessfully', response.data)
                     this.machine = response.data

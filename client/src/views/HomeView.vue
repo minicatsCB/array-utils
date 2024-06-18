@@ -18,7 +18,7 @@ export default defineComponent({
   },
   methods: {
     loadData(): void {
-      this.$axios.get('http://localhost:3000/data')
+      this.$axios.get(import.meta.env.VITE_SERVER_HOST + "/data")
         .then((response: ReqData<Array<Machine>>) => {
           console.log('Machines received sucessfully', response.data)
           this.machines = response.data
@@ -31,6 +31,7 @@ export default defineComponent({
                                   message: 'Loading failed' + err.toString(),
                                   icon: 'report_problem'
                               }) */
+          console.log(err);
           this.$eventBus.emit(EVENTS.OnError);
         })
     }
