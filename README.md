@@ -30,6 +30,8 @@ Data from only one machine was not enough. What if I launch **five virtual machi
 
 
 ## How to launch
+1. In your Docker host, create an environment variable called `HOST_IP`. Run the below command in a terminal (Linux shown here):
+`export HOST_IP=<your_docker_host_ip>`
 1. From root directory, execute:
 `docker compose up --build`
 2. Wait for the victim to send data. Its container will stop automatically
