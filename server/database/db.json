@@ -1,3 +1,19 @@
 {
-  "data": []
+  "data": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "test@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "Pepe perez",
+      "email": "elpepe@gmail.com"
+    },
+    {},
+    {
+      "id": "3",
+      "CustomPlugin": "random value"
+    }
+  ]
 }
