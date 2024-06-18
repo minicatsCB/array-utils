@@ -17,9 +17,10 @@ const router = createRouter({
           component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
         },
         {
-          path: 'details',
+          path: 'details/:id',
           name: 'Details',
           component: () => import(/* webpackChunkName: "infoTabs" */ '@/views/DetailsView.vue'),
+          props: true
         }
       ],
     },

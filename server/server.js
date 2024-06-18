@@ -16,8 +16,13 @@ app.get("/data", (req, res) => {
     res.send(data);
 });
 
+app.get("/data/:id", (req, res) => {
+    let data = controller.getDataById(req.params.id);
+    res.send(data);
+});
+
 app.post("/", (req, res) => {
-    let pluginType = req.header("X-Plugin-Type");
+    let pluginType = req.header("X-Plugin-Name");
     let machineId = req.header("X-Machine-Id");
     let msg = `Data from plugin '${pluginType}' received successfully.`;
     console.log(msg);

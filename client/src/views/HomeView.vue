@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import MachineList from '../components/MachineList.vue'
-import { filterIpv4Adresses } from "../utils/machineFilter"
 import { EVENTS } from "../utils/eventBus"
+import type { Machine, ReqData } from '@/utils/models';
 
 export default defineComponent({
   components: {
@@ -10,19 +10,18 @@ export default defineComponent({
   },
   data() {
         return {
-            machines: []
+            machines: [] as Array<Machine>
         }
   },
-  created: function () {
+  created: function (): void {
     this.loadData()
   },
   methods: {
-    loadData() {
-      this.$axios.get('http://localhost:3000/data')
-        .then((response) => {
+    loadData(): void {
+      this.$axios.get(import.meta.env.VITE_SERVER_HOST + "/data")
+        .then((response: ReqData<Array<Machine>>) => {
           console.log('Machines received sucessfully', response.data)
           this.machines = response.data
-          this.machines.forEach(machine => filterIpv4Adresses(machine))
         })
         .catch((err) => {
           // TODO: adapt to use something different from Quasar
@@ -32,6 +31,7 @@ export default defineComponent({
                                   message: 'Loading failed' + err.toString(),
                                   icon: 'report_problem'
                               }) */
+          console.log(err);
           this.$eventBus.emit(EVENTS.OnError);
         })
     }

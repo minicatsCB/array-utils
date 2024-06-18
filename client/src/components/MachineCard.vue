@@ -4,8 +4,8 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'machine-card',
     props: {
-        hostname: String,
-        address: String
+        hostname: { type: String, required: true },
+        address: { type: String, required: true }
     }
 });
 </script>

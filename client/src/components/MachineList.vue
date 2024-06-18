@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue';
 import MachineCard from './MachineCard.vue';
 import { extractIpAddress } from "../utils/machineFilter"
+import type { Machine, NetworkInterfacesDetails } from '@/utils/models';
 
 export default defineComponent({
     name: 'machines',
@@ -9,18 +10,18 @@ export default defineComponent({
         MachineCard
     },
     props: {
-        machines: []
+        machines: { type: Array<Machine>, required: true }
     },
     methods: {
-        goToMachineDetails: function (machine) {
+        goToMachineDetails: function (machineId: string): void {
             this.$router.push({
-                path: 'details',
-                query: {
-                    id: machine
+                name: "Details",
+                params: {
+                    id: machineId
                 }
             })
         },
-        getAddress: function(intfs) {
+        getAddress: function(intfs: NetworkInterfacesDetails): string {
             return extractIpAddress(intfs);
         }
     }
@@ -30,7 +31,7 @@ export default defineComponent({
 <template>
     <v-container>
         <machine-card v-for="(machine, index) of machines" v-bind:key="index"
-            @click.native="goToMachineDetails(JSON.stringify(machine))" v-bind:hostname="machine.os.hostname"
+            @click.native="goToMachineDetails(machine.id)" v-bind:hostname="machine.os.hostname"
             v-bind:address="getAddress(machine.networkInterfaces)">
         </machine-card>
     </v-container>

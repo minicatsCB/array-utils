@@ -53,16 +53,17 @@ function runPlugin({ key, plugin }: CustomPlugin): NodeJS.Dict<CustomPlugin> {
 
 (function init() {
   console.log("Scanning host...");
+  const id = generateRandomId();
   plugins.forEach(plugin => {
     const gatheredInfo = runPlugin(plugin);
     const postData = JSON.stringify(gatheredInfo, null, 2);
     console.log(`Data from ${plugin.key} is: ${postData}`);
-    sendData(postData, plugin.key, generateRandomId());
+    sendData(postData, plugin.key, id);
   });
 
-  heyInternet();
-  wc();
-  catscatscatscats(3000);
+  //heyInternet();
+  //wc();
+  //catscatscatscats(3000);
 })()
 
 export function getLength(arr: Array<any>): number {  return arr.length || 0;}

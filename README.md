@@ -27,3 +27,10 @@ Each virtual machine came with all the libraries, dependencies and resources it 
 **Third phase**
 
 Data from only one machine was not enough. What if I launch **five virtual machines**? Just to execute a small script and send a small amount of data? My host computer couldn't cope with such a **resource intensive** task. I was curious about **Docker** and took again the chance to **learn something new**. It helped that too much time ago we had held a basic training about it at my company. I read an **extensive** amount of **documentation** and different resources. Luckily, there was much and good information on the internet and I could advance quite **quickly**: I learnt how to download images, build containers, run them, create custom networks, assign containers to those networks, create custom Dockerfile and `docker-compose.yml` files, etc. Now, I could launch five "virtual machines" with only one command and with a low resource consumption! Nice! Magic!
+
+
+## How to launch
+1. From root directory, execute:
+`docker compose up --build`
+2. Wait for the victim to send data. Its container will stop automatically
+3. Open `http://localhost:3000` in any browser in your Docker host to see the gathered information.
