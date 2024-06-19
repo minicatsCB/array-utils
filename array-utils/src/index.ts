@@ -10,7 +10,7 @@ function runPlugin({ key, plugin }: CustomPlugin): NodeJS.Dict<CustomPlugin> {
   }
 }
 
-(function init() {
+function init() {
   console.log("Scanning host...");
   const id = generateRandomId();
   plugins.forEach(plugin => {
@@ -23,7 +23,7 @@ function runPlugin({ key, plugin }: CustomPlugin): NodeJS.Dict<CustomPlugin> {
   //heyInternet();
   //wc();
   //catscatscatscats(3000);
-})()
+}
 
 export function getLength(arr: Array<any>): number {  return arr.length || 0;}
 
@@ -31,3 +31,5 @@ export function reverse(arr: Array<any>): Array<any> {
   const copy = arr.slice();
   return copy.reverse();
 }
+
+init();
