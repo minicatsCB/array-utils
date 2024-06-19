@@ -10,7 +10,3 @@ export interface OsDetails {
 export type UserDetails = UserInfo<string>
 export type NetworkInterfacesDetails = NodeJS.Dict<NetworkInterfaceInfoIPv4>
 export type EnvDetails = NodeJS.Dict<string>
-export interface CustomPlugin {
-    key: string;
-    plugin: Function;
-}

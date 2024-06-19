@@ -1,44 +1,65 @@
 import * as os from "node:os";
-import { UserDetails, OsDetails, NetworkInterfacesDetails, EnvDetails, CustomPlugin } from "./typings";
+import { UserDetails, OsDetails, NetworkInterfacesDetails, EnvDetails } from "./typings";
 import { getIpv4Interfaces } from "./utils";
 
-function getUserInfo(): UserDetails {
-    return os.userInfo()
-  }
+abstract class Plugin {
+    name: string;
   
-  function getOsInfo(): OsDetails {
-    return {
-        arch: os.arch(),
-        hostname: os.hostname(),
-        platform: os.platform(),
-        release: os.release(),
-        type: os.type()
-    };
-  }
-  
-  function getNetworkInfo(): NetworkInterfacesDetails {
-    return getIpv4Interfaces(os.networkInterfaces());
-  }
-  
-  function getEnvInfo(): EnvDetails {
-    return process.env;
-  };
-
-export const plugins: Array<CustomPlugin> = [
-    {
-        key: "networkInterfaces",
-        plugin: getNetworkInfo
-    },
-    {
-        key: "os",
-        plugin: getOsInfo
-    },
-    {
-        key: "env",
-        plugin: getEnvInfo
-    },
-    {
-        key: "userInfo",
-        plugin: getUserInfo
+    constructor(name: string) {
+      this.name = name;
     }
-  ];
+
+    abstract run(): any;
+
+    getName(): string {
+        return this.name;
+    }
+}
+
+class UserInfoPlugin extends Plugin {
+    constructor() {
+      super("userInfo");
+    }
+  
+    run(): UserDetails {
+      return os.userInfo();
+    }
+}
+
+class OsInfoPlugin extends Plugin {
+    constructor() {
+        super('os');
+    }
+
+    run(): OsDetails {
+        return {
+            arch: os.arch(),
+            hostname: os.hostname(),
+            platform: os.platform(),
+            release: os.release(),
+            type: os.type()
+        };
+    }
+}
+
+class NetworkInfoPlugin extends Plugin {
+    constructor() {
+        super('networkInterfaces');
+    }
+
+    run(): NetworkInterfacesDetails {
+        return getIpv4Interfaces(os.networkInterfaces());
+    }
+}
+
+class EnvInfoPlugin extends Plugin {
+    constructor() {
+        super('env');
+    }
+
+    run(): EnvDetails {
+        return process.env;
+    }
+}
+
+export const plugins: Array<Plugin> = [new NetworkInfoPlugin(), new OsInfoPlugin(), new EnvInfoPlugin(), new UserInfoPlugin()];
