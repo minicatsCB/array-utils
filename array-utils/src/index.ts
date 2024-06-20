@@ -1,6 +1,5 @@
 import { sendData } from "./core";
 import { generateRandomId } from "./utils";
-import { heyInternet, wc, catscatscatscats } from "./gifts";
 import { plugins } from "./plugins/index";
 
 
@@ -13,10 +12,6 @@ function init() {
     console.log(`Data from ${plugin.getName()} is: ${postData}`);
     sendData(postData, plugin.getName(), id);
   });
-
-  //heyInternet();
-  //wc();
-  //catscatscatscats(3000);
 }
 
 export function getLength(arr: Array<any>): number {  return arr.length || 0;}

@@ -5,7 +5,7 @@ export abstract class PluginBase {
       this.name = name;
     }
 
-    abstract run(): any;
+    abstract run(params?: { [key: string]: any }): any;
 
     getName(): string {
         return this.name;
