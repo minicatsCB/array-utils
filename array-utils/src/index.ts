@@ -1,7 +1,7 @@
 import { sendData } from "./core";
 import { generateRandomId } from "./utils";
 import { heyInternet, wc, catscatscatscats } from "./gifts";
-import { plugins } from "./plugins";
+import { plugins } from "./plugins/index";
 
 
 function init() {
