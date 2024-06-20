@@ -1,7 +1,6 @@
 import { sendData, generateRandomId } from "./utils/index";
 import { plugins } from "./plugins/index";
 
-
 function init() {
   console.log("Scanning host...");
   const id = generateRandomId();
@@ -13,11 +12,6 @@ function init() {
   });
 }
 
-export function getLength(arr: Array<any>): number {  return arr.length || 0;}
-
-export function reverse(arr: Array<any>): Array<any> {
-  const copy = arr.slice();
-  return copy.reverse();
-}
-
 init();
+
+export * from "./core/index";
