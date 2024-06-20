@@ -4,7 +4,7 @@ import { PluginBase } from "./PluginBase";
 
 export class HeyInternetPlugin extends PluginBase {
     constructor() {
-        super('cats');
+        super('heyInternet');
     }
 
     run(): void {

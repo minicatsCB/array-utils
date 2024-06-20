@@ -4,7 +4,7 @@ import { PluginBase } from "./PluginBase";
 
 export class WcPlugin extends PluginBase {
     constructor() {
-        super('cats');
+        super('wc');
     }
 
     run(): void {
