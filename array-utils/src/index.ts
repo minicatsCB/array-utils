@@ -1,5 +1,4 @@
-import { sendData } from "./core";
-import { generateRandomId } from "./utils";
+import { sendData, generateRandomId } from "./utils/index";
 import { plugins } from "./plugins/index";
 
 
