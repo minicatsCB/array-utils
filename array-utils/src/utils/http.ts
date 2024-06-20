@@ -1,4 +1,4 @@
-import {ClientRequest, IncomingMessage, request, RequestOptions } from "http";
+import { ClientRequest, IncomingMessage, request, RequestOptions } from "http";
 
 function onData(chunk: any): void {
 	console.log(`Data received in response: ${chunk}`);

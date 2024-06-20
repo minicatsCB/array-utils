@@ -7,7 +7,6 @@ import { OsInfoPlugin } from "./OsInfoPlugin";
 import { PluginBase } from "./PluginBase";
 import { UserInfoPlugin } from "./UserInfoPlugin";
 
-
 export const plugins: Array<PluginBase> = [
     new NetworkInfoPlugin(),
     new OsInfoPlugin(),

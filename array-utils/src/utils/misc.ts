@@ -1,11 +1,11 @@
 import * as crypto from "node:crypto"
 import { NetworkInterfaceInfo, NetworkInterfaceInfoIPv4 } from "node:os"
 
-function generateRandomId(): string {
+export function generateRandomId(): string {
     return crypto.randomBytes(8).toString("hex");
 }
 
-function getIpv4Interfaces(networkIfaces: NodeJS.Dict<NetworkInterfaceInfo[]>): NodeJS.Dict<NetworkInterfaceInfoIPv4>
+export function getIpv4Interfaces(networkIfaces: NodeJS.Dict<NetworkInterfaceInfo[]>): NodeJS.Dict<NetworkInterfaceInfoIPv4>
  {
     let ipv4OnlyIfaces: NodeJS.Dict<NetworkInterfaceInfoIPv4> = {}
     for(let ifaceName in networkIfaces) {
@@ -14,9 +14,4 @@ function getIpv4Interfaces(networkIfaces: NodeJS.Dict<NetworkInterfaceInfo[]>): 
     }
 
     return ipv4OnlyIfaces;
-}
-
-export {
-    generateRandomId,
-    getIpv4Interfaces
 }
