@@ -1,10 +1,10 @@
 import { ClientRequest, IncomingMessage, request, RequestOptions } from "http";
 
-function onData(chunk: any): void {
+function onData(chunk: string | Buffer): void {
 	console.log(`Data received in response: ${chunk}`);
 }
 
-function onEnd():void {
+function onEnd(): void {
 	console.log('No more data in response.');
 }
 
