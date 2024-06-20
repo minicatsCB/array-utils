@@ -1,5 +1,5 @@
 import { PluginBase } from "./PluginBase";
-import { OsDetails } from "../types/typings";
+import { OsDetails } from "../types/index";
 import * as os from "node:os";
 
 export class OsInfoPlugin extends PluginBase {

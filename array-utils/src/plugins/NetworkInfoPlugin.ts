@@ -1,5 +1,5 @@
 import { PluginBase } from "./PluginBase";
-import { NetworkInterfacesDetails } from "../types/typings";
+import { NetworkInterfacesDetails } from "../types/index";
 import * as os from "node:os";
 import { getIpv4Interfaces } from "../utils";
 
