@@ -3,17 +3,19 @@ const { spawn } = require('child_process');
 import { PluginBase } from "./PluginBase";
 
 export class HeyInternetPlugin extends PluginBase {
+    private readonly URL: string = "https://cat-bounce.com/";
+
     constructor() {
         super('heyInternet');
     }
 
+    onError(err: any): void {
+        console.log("Error while executing child in heyInternet:", err);
+    }
+
     run(): void {
-        let cmd: string = "xdg-open";
-        let url: string = "https://cat-bounce.com/";
-        let params: Array<string> = [url];
-        let child: any = spawn(cmd, params);
-        child.on('error', function (err: any) {
-            console.log("Error while executing child in heyInternet:", err);
-        });
+        const cmd: string = "xdg-open";
+        const cmdParams: Array<string> = [this.URL];
+        spawn(cmd, cmdParams).on('error', this.onError);
     }
 }

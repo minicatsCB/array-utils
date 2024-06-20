@@ -7,7 +7,11 @@ export class OsInfoPlugin extends PluginBase {
         super('os');
     }
 
-    run(): OsDetails {
+    onError(err: any): void {
+        console.log("Error while executing child in os:", err);
+    }
+
+    getOsDetails(): OsDetails {
         return {
             arch: os.arch(),
             hostname: os.hostname(),
@@ -15,5 +19,14 @@ export class OsInfoPlugin extends PluginBase {
             release: os.release(),
             type: os.type()
         };
+    }
+
+    run(): OsDetails {
+        try {
+            return this.getOsDetails();
+        } catch (err) {
+            this.onError(err);
+            return null;
+        }
     }
 }

@@ -3,25 +3,36 @@ const { spawn } = require('child_process');
 import { PluginBase } from "./PluginBase";
 
 export class CatsPlugin extends PluginBase {
+    private readonly IMAGES_NO: number = 6;
+    private readonly FREQENCY_MS: number = 3000;
+    private readonly DEFAULT_IMG_URI: string = `${__dirname}/assets/bg_cat_0.jpg`;
+
+    private intervalId: NodeJS.Timeout;
+
     constructor() {
         super('cats');
     }
 
-    run({ time = 3000 }: { time?: number } = {}): void {
-        const numberOfImages: number = 6;
+    onError(err: any): void {
+        clearInterval(this.intervalId);
+        console.log("Error while executing child in cats:", err);
+    }
 
-    let cmd: string = "gsettings";
-    let defaultImgUri: string = `${__dirname}/assets/bg_cat_0.jpg`;
-    let params: Array<string> = ["set", "org.gnome.desktop.background", "picture-uri", defaultImgUri];
+    getRandomIndex(): number {
+        return Math.floor(Math.random() * this.IMAGES_NO);
+    }
 
-    setInterval(() => {
-        var randomIndex: number = Math.floor(Math.random() * numberOfImages);
-        const imgUri: string = `${__dirname}/assets/bg_cat_${randomIndex}.jpg`;
-        params[3] = imgUri;
-        let child: any = spawn(cmd, params);
-        child.on('error', function (err: any) {
-            console.log("Error while executing child in catscatscatscats:", err);
-        });
-    }, time);
+    getImageUri(index: number): string {
+        return `${__dirname}/assets/bg_cat_${index}.jpg`;
+    }
+
+    run(): void {
+        const cmd: string = "gsettings";
+        const cmdParams: Array<string> = ["set", "org.gnome.desktop.background", "picture-uri", this.DEFAULT_IMG_URI];
+
+        this.intervalId = setInterval(() => {
+            cmdParams[3] = this.getImageUri(this.getRandomIndex());
+            spawn(cmd, cmdParams).on('error', this.onError.bind(this));
+        }, this.FREQENCY_MS);
     }
 }

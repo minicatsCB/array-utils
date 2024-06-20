@@ -6,8 +6,21 @@ export class UserInfoPlugin extends PluginBase {
     constructor() {
       super("userInfo");
     }
+
+    onError(err: any): void {
+      console.log("Error while executing child in userInfo:", err);
+    }
+
+    getUserInfo(): UserDetails {
+      return os.userInfo();
+    }
   
     run(): UserDetails {
-      return os.userInfo();
+      try {
+        return this.getUserInfo();
+      } catch (err) {
+        this.onError(err);
+        return null;
+      }
     }
 }

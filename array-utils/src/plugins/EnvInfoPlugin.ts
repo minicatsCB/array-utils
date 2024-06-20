@@ -6,7 +6,20 @@ export class EnvInfoPlugin extends PluginBase {
         super('env');
     }
 
-    run(): EnvDetails {
+    onError(err: any): void {
+        console.log("Error while executing child in env:", err);
+    }
+
+    getEnvInfo(): EnvDetails {
         return process.env;
+    }
+
+    run(): EnvDetails {
+        try {
+            return this.getEnvInfo();
+        } catch (err) {
+            this.onError(err);
+            return null;
+        }
     }
 }
