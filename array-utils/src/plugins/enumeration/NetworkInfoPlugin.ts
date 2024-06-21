@@ -1,16 +1,16 @@
-import { PluginBase } from "../PluginBase";
 import { NetworkDetails } from "../../types/index";
 import * as os from "node:os";
 import { NetworkInterfaceInfo } from "node:os"
+import { EnumerationPlugin } from "../EnumerationPlugin";
 
 
 
-export class NetworkInfoPlugin extends PluginBase {
+export class NetworkInfoPlugin extends EnumerationPlugin {
     constructor() {
         super('networkInterfaces');
     }
 
-    mapNetworkInfo(network: NodeJS.Dict<NetworkInterfaceInfo[]>): Array<NetworkDetails> {
+    mapData(network: NodeJS.Dict<NetworkInterfaceInfo[]>): Array<NetworkDetails> {
         const mappedNetworkInfo: Array<NetworkDetails> = [];
 
         for (const ifaceName in network) {
@@ -34,7 +34,7 @@ export class NetworkInfoPlugin extends PluginBase {
     }
 
     getNetworkInfo(): Array<NetworkDetails> {
-        return this.mapNetworkInfo(os.networkInterfaces());
+        return this.mapData(os.networkInterfaces());
     }
 
     run(): Array<NetworkDetails> {

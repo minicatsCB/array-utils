@@ -1,13 +1,13 @@
-import { PluginBase } from "../PluginBase";
 import { OsDetails } from "../../types/index";
 import * as os from "node:os";
+import { EnumerationPlugin } from "../EnumerationPlugin";
 
-export class OsInfoPlugin extends PluginBase {
+export class OsInfoPlugin extends EnumerationPlugin {
     constructor() {
         super('os');
     }
 
-    mapOsDetails(): OsDetails {
+    mapData(): OsDetails {
         return {
             arch: os.arch(),
             hostname: os.hostname(),
@@ -18,7 +18,7 @@ export class OsInfoPlugin extends PluginBase {
     }
 
     getOsDetails(): OsDetails {
-        return this.mapOsDetails();
+        return this.mapData();
     }
 
     run(): OsDetails {

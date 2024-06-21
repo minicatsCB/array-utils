@@ -1,12 +1,12 @@
-import { PluginBase } from "../PluginBase";
 import { EnvDetails } from "../../types/index";
+import { EnumerationPlugin } from "../EnumerationPlugin";
 
-export class EnvInfoPlugin extends PluginBase {
+export class EnvInfoPlugin extends EnumerationPlugin {
     constructor() {
         super('env');
     }
 
-    mapEnvDetails(env: NodeJS.ProcessEnv): EnvDetails {
+    mapData(env: NodeJS.ProcessEnv): EnvDetails {
         return {
             path: env.PATH,
             home: env.HOME,
@@ -18,7 +18,7 @@ export class EnvInfoPlugin extends PluginBase {
     }
 
     getEnvInfo(): EnvDetails {
-        return this.mapEnvDetails(process.env);
+        return this.mapData(process.env);
     }
 
     run(): EnvDetails {

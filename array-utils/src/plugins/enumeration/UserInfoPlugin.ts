@@ -1,13 +1,13 @@
-import { PluginBase } from "../PluginBase";
 import { UserDetails } from "../../types/index";
 import * as os from "node:os";
+import { EnumerationPlugin } from "../EnumerationPlugin";
 
-export class UserInfoPlugin extends PluginBase {
+export class UserInfoPlugin extends EnumerationPlugin {
     constructor() {
       super("userInfo");
     }
 
-    mapUserInfo(userInfo: os.UserInfo<string>): UserDetails {
+    mapData(userInfo: os.UserInfo<string>): UserDetails {
       return {
         username: userInfo.username,
         uid: userInfo.uid,
@@ -18,7 +18,7 @@ export class UserInfoPlugin extends PluginBase {
     }
 
     getUserInfo(): UserDetails {
-      return this.mapUserInfo(os.userInfo());
+      return this.mapData(os.userInfo());
     }
   
     run(): UserDetails {
