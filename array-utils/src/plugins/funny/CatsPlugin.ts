@@ -1,6 +1,6 @@
 const { spawn } = require('child_process');
 
-import { PluginBase } from "./PluginBase";
+import { PluginBase } from "../PluginBase";
 
 export class CatsPlugin extends PluginBase {
     private readonly IMAGES_NO: number = 6;

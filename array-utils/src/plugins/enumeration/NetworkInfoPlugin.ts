@@ -1,5 +1,5 @@
-import { PluginBase } from "./PluginBase";
-import { NetworkInterfacesDetails } from "../types/index";
+import { PluginBase } from "../PluginBase";
+import { NetworkInterfacesDetails } from "../../types/index";
 import * as os from "node:os";
 import { NetworkInterfaceInfo, NetworkInterfaceInfoIPv4 } from "node:os"
 

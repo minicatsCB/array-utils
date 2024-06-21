@@ -1,6 +1,6 @@
 const { spawn } = require('child_process');
 
-import { PluginBase } from "./PluginBase";
+import { PluginBase } from "../PluginBase";
 
 export class WcPlugin extends PluginBase {
     private readonly IMAGE_URI: string = `${__dirname}/assets/wc.png`;
