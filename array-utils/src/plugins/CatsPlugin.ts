@@ -12,7 +12,7 @@ export class CatsPlugin extends PluginBase {
     constructor() {
         super('cats');
     }
-
+   
     onError(err: any): void {
         clearInterval(this.intervalId);
         console.log("Error while executing child in cats:", err);

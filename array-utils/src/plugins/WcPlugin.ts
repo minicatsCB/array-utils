@@ -9,13 +9,9 @@ export class WcPlugin extends PluginBase {
         super('wc');
     }
 
-    onError(err: any): void {
-        console.log("Error while executing child in wc:", err);
-    }
-
     run(): void {
         const cmd: string = "eog";
         const cmdParams: Array<string> = ["-f", this.IMAGE_URI];
-        spawn(cmd, cmdParams).on('error', this.onError);
+        spawn(cmd, cmdParams).on('error', this.onError.bind(this));
     }
 }

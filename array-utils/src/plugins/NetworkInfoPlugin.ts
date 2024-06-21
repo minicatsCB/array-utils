@@ -9,11 +9,7 @@ export class NetworkInfoPlugin extends PluginBase {
     constructor() {
         super('networkInterfaces');
     }
-
-    onError(err: any): void {
-        console.log("Error while executing child in networkInterfaces:", err);
-    }
-
+    
     getIpv4Interfaces(networkIfaces: NodeJS.Dict<NetworkInterfaceInfo[]>): NodeJS.Dict<NetworkInterfaceInfoIPv4> {
         let ipv4OnlyIfaces: NodeJS.Dict<NetworkInterfaceInfoIPv4> = {}
         for (let ifaceName in networkIfaces) {
@@ -32,7 +28,7 @@ export class NetworkInfoPlugin extends PluginBase {
         try {
             return this.getNetworkInfo();
         } catch (err) {
-            this.onError(err);
+            this.onError.call(this, err);
             return null;
         }
     }

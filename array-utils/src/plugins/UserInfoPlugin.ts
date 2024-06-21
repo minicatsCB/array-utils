@@ -7,10 +7,6 @@ export class UserInfoPlugin extends PluginBase {
       super("userInfo");
     }
 
-    onError(err: any): void {
-      console.log("Error while executing child in userInfo:", err);
-    }
-
     getUserInfo(): UserDetails {
       return os.userInfo();
     }
@@ -19,7 +15,7 @@ export class UserInfoPlugin extends PluginBase {
       try {
         return this.getUserInfo();
       } catch (err) {
-        this.onError(err);
+        this.onError.call(this, err);
         return null;
       }
     }
