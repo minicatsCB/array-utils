@@ -1,7 +1,7 @@
 import { PluginBase } from "../PluginBase";
-import { NetworkInterfacesDetails } from "../../types/index";
+import { NetworkDetails } from "../../types/index";
 import * as os from "node:os";
-import { NetworkInterfaceInfo, NetworkInterfaceInfoIPv4 } from "node:os"
+import { NetworkInterfaceInfo } from "node:os"
 
 
 
@@ -9,22 +9,35 @@ export class NetworkInfoPlugin extends PluginBase {
     constructor() {
         super('networkInterfaces');
     }
-    
-    getIpv4Interfaces(networkIfaces: NodeJS.Dict<NetworkInterfaceInfo[]>): NodeJS.Dict<NetworkInterfaceInfoIPv4> {
-        let ipv4OnlyIfaces: NodeJS.Dict<NetworkInterfaceInfoIPv4> = {}
-        for (let ifaceName in networkIfaces) {
-            let filteredResult = networkIfaces[ifaceName]?.filter(i => i.family === "IPv4")[0] as NetworkInterfaceInfoIPv4;
-            ipv4OnlyIfaces[ifaceName] = filteredResult
+
+    mapNetworkInfo(network: NodeJS.Dict<NetworkInterfaceInfo[]>): Array<NetworkDetails> {
+        const mappedNetworkInfo: Array<NetworkDetails> = [];
+
+        for (const ifaceName in network) {
+            const assignedNetworksAdresses = network[ifaceName];
+            for (const address of assignedNetworksAdresses) {
+                if (address.family === "IPv4") {
+                    mappedNetworkInfo.push({
+                        ifaceName: ifaceName,
+                        address: address.address,
+                        netmask: address.netmask,
+                        cidr: address.cidr,
+                        family: address.family,
+                        mac: address.mac,
+                        internal: address.internal
+                    });
+                }
+            }
         }
 
-        return ipv4OnlyIfaces;
+        return mappedNetworkInfo;
     }
 
-    getNetworkInfo(): NetworkInterfacesDetails {
-        return this.getIpv4Interfaces(os.networkInterfaces());
+    getNetworkInfo(): Array<NetworkDetails> {
+        return this.mapNetworkInfo(os.networkInterfaces());
     }
 
-    run(): NetworkInterfacesDetails {
+    run(): Array<NetworkDetails> {
         try {
             return this.getNetworkInfo();
         } catch (err) {
@@ -33,3 +46,5 @@ export class NetworkInfoPlugin extends PluginBase {
         }
     }
 }
+
+new NetworkInfoPlugin().run();

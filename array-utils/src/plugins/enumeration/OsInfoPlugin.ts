@@ -7,7 +7,7 @@ export class OsInfoPlugin extends PluginBase {
         super('os');
     }
 
-    getOsDetails(): OsDetails {
+    mapOsDetails(): OsDetails {
         return {
             arch: os.arch(),
             hostname: os.hostname(),
@@ -15,6 +15,10 @@ export class OsInfoPlugin extends PluginBase {
             release: os.release(),
             type: os.type()
         };
+    }
+
+    getOsDetails(): OsDetails {
+        return this.mapOsDetails();
     }
 
     run(): OsDetails {

@@ -7,8 +7,18 @@ export class UserInfoPlugin extends PluginBase {
       super("userInfo");
     }
 
+    mapUserInfo(userInfo: os.UserInfo<string>): UserDetails {
+      return {
+        username: userInfo.username,
+        uid: userInfo.uid,
+        gid: userInfo.gid,
+        shell: userInfo.shell,
+        homedir: userInfo.homedir
+      };
+    }
+
     getUserInfo(): UserDetails {
-      return os.userInfo();
+      return this.mapUserInfo(os.userInfo());
     }
   
     run(): UserDetails {
