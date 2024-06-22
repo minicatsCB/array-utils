@@ -1,2 +1,2 @@
 export * from './enumeration/index';
-export * from './funny/index';
+export * from './trolling/index';
