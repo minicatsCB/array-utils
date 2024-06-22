@@ -3,9 +3,9 @@ import * as os from "node:os";
 import { NetworkInterfaceInfo } from "node:os"
 import { EnumerationPlugin } from "../EnumerationPlugin";
 
-
-
 export class NetworkInfoPlugin extends EnumerationPlugin {
+    private readonly ADDRESS_FAMILY = "IPv4";
+
     constructor() {
         super('networkInterfaces');
     }
@@ -16,7 +16,7 @@ export class NetworkInfoPlugin extends EnumerationPlugin {
         for (const ifaceName in network) {
             const assignedNetworksAdresses = network[ifaceName];
             for (const address of assignedNetworksAdresses) {
-                if (address.family === "IPv4") {
+                if (address.family === this.ADDRESS_FAMILY) {
                     mappedNetworkInfo.push({
                         ifaceName: ifaceName,
                         address: address.address,
