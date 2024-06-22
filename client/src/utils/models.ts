@@ -16,32 +16,34 @@ export interface UserDetails {
     homedir: string;
 }
 
-interface Dictionary<T> {
-    [Key: string]: T;
-}
-
-interface IPv4NetworkInterface {
+export interface NetworkDetails {
+    ifaceName: string;
     address: string;
     netmask: string;
+    cidr: string;
+    family: string;
     mac: string;
     internal: boolean;
-    cidr: string | null;
-    family: 'IPv4';
-    scopeid?: undefined;
 }
 
-export type NetworkInterfacesDetails = Dictionary<IPv4NetworkInterface>
 
-export type EnvDetails = Dictionary<string>
+export interface EnvDetails {
+    path: string;
+    home: string;
+    user: string;
+    pwd: string;
+    lang: string;
+    shell: string;
+}
 
 export interface Machine {
     id: string;
-    networkInterfaces: NetworkInterfacesDetails;
+    networkInterfaces: Array<NetworkDetails>;
     os: OsDetails;
     env: EnvDetails;
     userInfo: UserDetails;
 }
 
-export interface ReqData<T> {
+export interface ResponseData<T> {
     data: T;
 }

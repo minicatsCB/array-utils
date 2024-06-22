@@ -1,8 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import MachineCard from './MachineCard.vue';
-import { extractIpAddress } from "../utils/machineFilter"
-import type { Machine, NetworkInterfacesDetails } from '@/utils/models';
+import type { Machine, NetworkDetails } from '@/utils/models';
 
 export default defineComponent({
     name: 'machines',
@@ -21,8 +20,12 @@ export default defineComponent({
                 }
             })
         },
-        getAddress: function(intfs: NetworkInterfacesDetails): string {
-            return extractIpAddress(intfs);
+        isEthernet: function ({ ifaceName } : { ifaceName: string}): boolean {
+            return ifaceName.toLowerCase().includes('ethernet');
+        },
+        extractIpAddress: function(ifaces: Array<NetworkDetails>): string {
+            const foundIface = ifaces.find(this.isEthernet);
+            return foundIface ? foundIface.address : 'x.y.z.w';
         }
     }
 });
@@ -32,7 +35,7 @@ export default defineComponent({
     <v-container>
         <machine-card v-for="(machine, index) of machines" v-bind:key="index"
             @click.native="goToMachineDetails(machine.id)" v-bind:hostname="machine.os.hostname"
-            v-bind:address="getAddress(machine.networkInterfaces)">
+            v-bind:address="extractIpAddress(machine.networkInterfaces)">
         </machine-card>
     </v-container>
 </template>

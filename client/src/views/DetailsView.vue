@@ -1,6 +1,6 @@
 <script lang="ts">
 import { EVENTS } from '@/utils/eventBus';
-import type { Machine, ReqData } from '@/utils/models';
+import type { Machine, ResponseData } from '@/utils/models';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -16,26 +16,17 @@ export default defineComponent({
     },
     created: function () {
         this.loadData();
-        console.log('Details for machine with ID:', this.id)
     },
     methods: {
         loadData(): void {
             this.$axios.get(import.meta.env.VITE_SERVER_HOST + "/data/" + this.id)
-                .then((response: ReqData<Machine>) => {
-                    console.log('Machine received sucessfully', response.data)
+                .then((response: ResponseData<Machine>) => {
                     this.machine = response.data
                 })
                 .catch((err) => {
-                    // TODO: adapt to use something different from Quasar
-                    /*                     this.$q.notify({
-                                            color: 'negative',
-                                            position: 'top',
-                                            message: 'Loading failed' + err.toString(),
-                                            icon: 'report_problem'
-                                        }) */
                     this.$eventBus.emit(EVENTS.OnError);
                 })
-        }
+        },
     }
 });
 </script>
@@ -78,10 +69,9 @@ export default defineComponent({
 
             <v-window-item :key="4" :value="4">
                 <v-container fluid>
-                    <v-list lines="one" v-for="(info, intfName) in machine.networkInterfaces">
-                        {{intfName}}
-                        <v-list-item v-for="(val, key) of info" :key="key"
-                            :title="key" :subtitle="val?.toString()"></v-list-item>
+                    <v-list lines="one" v-for="iface in machine.networkInterfaces">
+                            <v-list-item v-for="(val, key) in iface" :key="key"
+                                :title="key" :subtitle="val?.toString()"></v-list-item>
                     </v-list>
                 </v-container>
             </v-window-item>

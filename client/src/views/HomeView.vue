@@ -2,7 +2,7 @@
 import { defineComponent } from 'vue';
 import MachineList from '../components/MachineList.vue'
 import { EVENTS } from "../utils/eventBus"
-import type { Machine, ReqData } from '@/utils/models';
+import type { Machine, ResponseData } from '@/utils/models';
 
 export default defineComponent({
   components: {
@@ -19,22 +19,14 @@ export default defineComponent({
   methods: {
     loadData(): void {
       this.$axios.get(import.meta.env.VITE_SERVER_HOST + "/data")
-        .then((response: ReqData<Array<Machine>>) => {
-          console.log('Machines received sucessfully', response.data)
+        .then((response: ResponseData<Array<Machine>>) => {
           this.machines = response.data
+          console.log(response.data)
         })
         .catch((err) => {
-          // TODO: adapt to use something different from Quasar
-          /*                     this.$q.notify({
-                                  color: 'negative',
-                                  position: 'top',
-                                  message: 'Loading failed' + err.toString(),
-                                  icon: 'report_problem'
-                              }) */
-          console.log(err);
           this.$eventBus.emit(EVENTS.OnError);
         })
-    }
+    },
   }
 });
 </script>
