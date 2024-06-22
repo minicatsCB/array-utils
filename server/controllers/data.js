@@ -6,7 +6,7 @@ const data = {
         res.send(data);
     },
     getDataById: function(req, res) {
-        const data = DataModel.getDataById(Number(req.params.id));
+        const data = DataModel.getDataById(req.params.id);
         res.send(data);
     },
     saveData: function(req, res) {
