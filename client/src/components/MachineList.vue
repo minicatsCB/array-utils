@@ -31,9 +31,15 @@ export default defineComponent({
 });
 </script>
 
+<style lang="postcss">
+.machine {
+    margin-bottom: 16px;
+}
+</style>
+
 <template>
     <v-container>
-        <machine-card v-for="(machine, index) of machines" v-bind:key="index"
+        <machine-card class="machine" v-for="(machine, index) of machines" v-bind:key="index"
             @click.native="goToMachineDetails(machine.id)" v-bind:hostname="machine.os.hostname"
             v-bind:address="extractIpAddress(machine.networkInterfaces)">
         </machine-card>

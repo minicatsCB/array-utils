@@ -21,7 +21,6 @@ export default defineComponent({
       this.$axios.get(import.meta.env.VITE_SERVER_HOST + "/data")
         .then((response: ResponseData<Array<Machine>>) => {
           this.machines = response.data
-          console.log(response.data)
         })
         .catch((err) => {
           this.$eventBus.emit(EVENTS.OnError);
