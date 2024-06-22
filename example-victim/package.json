@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run linklib && npm run test",
     "test": "npx ts-node index",
     "linklib": "npm run --prefix ../array-utils build && npm install"
   },
