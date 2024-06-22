@@ -1,5 +1,3 @@
-import { NetworkInterfaceInfoIPv4, UserInfo } from "node:os";
-
 export interface OsDetails {
     arch: string;
     hostname: string;
@@ -7,6 +5,7 @@ export interface OsDetails {
     release: string;
     type: string;
 }
+
 export interface UserDetails {
     username: string;
     uid: number;
@@ -14,6 +13,7 @@ export interface UserDetails {
     shell: string;
     homedir: string;
 }
+
 export interface NetworkDetails {
     ifaceName: string;
     address: string;
@@ -23,7 +23,7 @@ export interface NetworkDetails {
     mac: string;
     internal: boolean;
 }
-//export type NetworkInterfacesDetails = NodeJS.Dict<NetworkInterfaceInfoIPv4>
+
 export interface EnvDetails {
     path: string;
     home: string;

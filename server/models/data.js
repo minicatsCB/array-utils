@@ -22,13 +22,13 @@ let database = {
         if(database.machineExists(machineId)) {
               db.get("data")
                 .find({ id: machineId })
-                .assign({ [pluginType]: data[pluginType] })
+                .assign({ [pluginType]: data })
                 .write();
 
             console.log("Record for this machine already exists. Updating data...");
         } else {
             db.get("data")
-              .push({ id: machineId, [pluginType]: data[pluginType] })
+              .push({ id: machineId, [pluginType]: data })
               .write();
 
             console.log("No record for this machine found. Creating new record...");
