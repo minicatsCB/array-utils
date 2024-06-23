@@ -8,6 +8,12 @@ app.use(logger);
 app.use(cors);
 app.use(response);
 
+app.get('/', (req, res) => {
+    res.json({
+    message: 'Welcome to the API',
+    availableEndpoints: ['/data', '/data/:id']
+    });
+});
 app.use('/data', dataRouter);
 
 app.use(unexpectedError);
