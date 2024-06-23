@@ -11,8 +11,15 @@ const data = {
     },
     saveData: function(req, res) {
         let pluginType = req.header("X-Plugin-Name");
+        // TODO: extract validation to middleware. Hint: use express-validator
+        if (!pluginType) {
+            return res.sendFail({'X-Plugin-Name': "Please provide 'X-Plugin-Name' header."});
+        }
+
         let machineId = req.header("X-Machine-Id");
-        console.log(`Data from plugin '${pluginType}' received successfully.`);
+        if (!machineId) {
+            return res.sendFail({'X-Machine-Id': "Please provide 'X-Machine-Id' header."});
+        }
         DataModel.saveData(req.body, pluginType, machineId);
         res.sendData(null);
     },
