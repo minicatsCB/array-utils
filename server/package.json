@@ -19,6 +19,7 @@
     "homepage": "https://github.com/minicatsCB/array-utils#readme",
     "dependencies": {
         "express": "4.17.1",
+        "express-validator": "^7.1.0",
         "lowdb": "1.0.0"
     },
     "devDependencies": {

@@ -1,4 +1,5 @@
 const DataModel = require('../models/data');
+const { validationResult } = require('express-validator');
 
 const data = {
     getData: function(req, res) {
@@ -10,18 +11,14 @@ const data = {
         res.sendData(data);
     },
     saveData: function(req, res) {
-        let pluginType = req.header("X-Plugin-Name");
-        // TODO: extract validation to middleware. Hint: use express-validator
-        if (!pluginType) {
-            return res.sendFail({'X-Plugin-Name': "Please provide 'X-Plugin-Name' header."});
+        const result = validationResult(req);
+        if (result.isEmpty()) {
+            let pluginType = req.header("X-Plugin-Name");
+            let machineId = req.header("X-Machine-Id");
+            DataModel.saveData(req.body, pluginType, machineId);
+            return res.sendData(null);
         }
-
-        let machineId = req.header("X-Machine-Id");
-        if (!machineId) {
-            return res.sendFail({'X-Machine-Id': "Please provide 'X-Machine-Id' header."});
-        }
-        DataModel.saveData(req.body, pluginType, machineId);
-        res.sendData(null);
+        res.sendFail(result.array());
     },
 }
 

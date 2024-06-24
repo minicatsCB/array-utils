@@ -11,8 +11,8 @@ module.exports = function(req, res, next) {
         res.json({ status: SUCCESS, data });
     }
 
-    res.sendFail = function(reason, statusCode = 400) {
-        res.status(statusCode).json({ status: FAIL, data: reason });
+    res.sendFail = function(reasons, statusCode = 400) {
+        res.status(statusCode).json({ status: FAIL, data: reasons });
     }
 
     next();
