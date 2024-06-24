@@ -9,6 +9,8 @@ const SUCCESS = 'success';
 const FAIL = 'fail';
 const ERROR = 'error';
 
+// TODO: beforeeach -> reset database to empty or tests values
+
 describe('Data Controller - Success', () => {
   it('should fetch all data', async () => {
     DataModel.getData.mockReturnValue([{ id: 1, name: 'Test Data' }]);
