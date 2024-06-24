@@ -1,6 +1,10 @@
+// TODO: consider using morgan or winston for more logging features
+
 const ERROR = 'error';
 
 module.exports = function(err, req, res, next) {
-    console.error(err); // TODO: do not show when running tests
+    if (process.env.NODE_ENV !== 'test') {
+        console.error(err);
+    }
     res.status(500).json({ status: ERROR, message: err.message });
 }
