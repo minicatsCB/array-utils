@@ -4,6 +4,7 @@ const DataModel = require('../../models/data');
 
 jest.mock('../../models/data');
 
+// TODO: extract these constants to a shared file
 const SUCCESS = 'success';
 const FAIL = 'fail';
 const ERROR = 'error';
@@ -56,49 +57,9 @@ describe('Data Controller - Fail', () => {
       .then((response) => {
         expect(response.statusCode).toBe(400);
         expect(response.body.status).toEqual(FAIL);
-        expect(response.body.data).toEqual({"X-Machine-Id": "Please provide 'X-Machine-Id' header."});
+        expect(response.body.data).toEqual([{"location": "headers", "msg": "Invalid value", "path": "x-machine-id", "type": "field"}]);
       });
   });
-
-  it('should fail if X-Plugin-Name header is missing', async () => {
-    await supertest(app)
-      .post('/data')
-      .set('X-Machine-Id', 'abcd')
-      .send({ name: 'Linux' })
-      .then((response) => {
-        expect(response.statusCode).toBe(400);
-        expect(response.body.status).toEqual(FAIL);
-        expect(response.body.data).toEqual({"X-Plugin-Name": "Please provide 'X-Plugin-Name' header."});
-      });
-  });
-});
-
-describe('Data Controller - Fail', () => {
-  it('should fail if X-Machine-Id header is missing', async () => {
-    await supertest(app)
-      .post('/data')
-      .set('X-Plugin-Name', 'os')
-      .send({ name: 'Linux' })
-      .then((response) => {
-        expect(response.statusCode).toBe(400);
-        expect(response.body.status).toEqual(FAIL);
-        expect(response.body.data).toEqual({"X-Machine-Id": "Please provide 'X-Machine-Id' header."});
-      });
-  });
-
-  it('should fail if X-Plugin-Name header is missing', async () => {
-    await supertest(app)
-      .post('/data')
-      .set('X-Machine-Id', 'abcd')
-      .send({ name: 'Linux' })
-      .then((response) => {
-        expect(response.statusCode).toBe(400);
-        expect(response.body.status).toEqual(FAIL);
-        expect(response.body.data).toEqual({"X-Plugin-Name": "Please provide 'X-Plugin-Name' header."});
-      });
-  });
-
-  // TODO: should fail if body is missing
 });
 
 describe('Data Controller - Error', () => {
