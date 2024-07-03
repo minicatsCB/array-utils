@@ -9,16 +9,12 @@ db.defaults({ data: [] }).write();
 
 let database = {
     getData: function() {
-        console.log("Getting data from database...");
         return db.get("data").value();
     },
     getDataById: function(id) {
-        console.log("Getting data by id from database...");
         return db.get("data").find({"id": id}).value();
     },
     saveData: function(data, pluginType, machineId) {
-        console.log("Writing data to database...");
-
         if(database.machineExists(machineId)) {
               db.get("data")
                 .find({ id: machineId })
