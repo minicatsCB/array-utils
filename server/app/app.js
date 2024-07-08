@@ -1,7 +1,7 @@
-const express = require("express");
+import  express from "express";
 const app = express();
-const dataRouter = require("../routes/data");
-const {cors, logger, response, unexpectedError} = require("../middleware/index");
+import dataRouter from "../routes/data.js";
+import { cors, logger, response, unexpectedError } from "../middleware/index.js";
 
 app.use(express.json());
 app.use(logger);
@@ -18,4 +18,4 @@ app.use('/data', dataRouter);
 
 app.use(unexpectedError);
 
-module.exports = app;
+export default app;

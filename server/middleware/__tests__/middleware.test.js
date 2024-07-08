@@ -1,9 +1,18 @@
-const request = require("supertest");
-const app = require("../../app/app");
-const httpMocks = require('node-mocks-http');
-const { response } = require('../index');
+import {describe, expect, it, vi, beforeEach, afterEach, beforeAll} from 'vitest';
+import request from "supertest";
+import app from "../../app/app";
+import { createRequest, createResponse } from 'node-mocks-http';
+import { response } from '../index';
+import database from '../../models/data.js';
 
-jest.mock('../../models/data');
+vi.mock('../../models/data.js', () => ({
+  __esModule: true,
+  default: {
+    getData: vi.fn(),
+    getDataById: vi.fn(),
+    saveData: vi.fn(),
+  }
+}));
 
 const SUCCESS = 'success';
 const FAIL = 'fail';
@@ -29,7 +38,7 @@ describe('Logger Middleware', () => {
     });
     
     it('logs input message to the Node.js console', async () => {
-        const spy = jest.spyOn(console, 'log');
+        const spy = vi.spyOn(console, 'log');
         await request(app).get('/data');
 
         expect(spy).toHaveBeenCalled();
@@ -41,19 +50,19 @@ describe('Response Middleware', () => {
     let req, res, next;
   
     beforeEach(() => {
-      req = httpMocks.createRequest();
-      res = httpMocks.createResponse();
-      next = jest.fn();
+      req = createRequest();
+      res = createResponse();
+      next = vi.fn();
     });
   
-    test('res.sendData adds success response method', () => {
+    it('res.sendData adds success response method', () => {
       const testData = { key: 'value' };
       response(req, res, next);
       res.sendData(testData);
       expect(res._getData()).toEqual(JSON.stringify({ status: SUCCESS, data: testData }));
     });
   
-    test('res.sendFail adds failure response method', () => {
+    it('res.sendFail adds failure response method', () => {
       const testReasons = ['Error reason'];
       const statusCode = 400;
       response(req, res, next);
@@ -64,12 +73,11 @@ describe('Response Middleware', () => {
   });
 
   describe('Unexpected Error Middleware', () => {
-    beforeAll(() => {
-      const { getData } = require('../../models/data');
-      getData.mockImplementation(() => { throw new Error('Forced error') });
+    beforeAll(async () => {
+      database.getData.mockImplementation(() => { throw new Error('Forced error') });
     });
 
-    test('should respond with 500 and error message on error', async () => {
+    it('should respond with 500 and error message on error', async () => {
       const response = await request(app)
         .get('/data')
         .expect('Content-Type', /json/)

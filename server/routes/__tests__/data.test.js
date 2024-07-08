@@ -1,26 +1,30 @@
-const request = require('supertest');
-const app = require('../../app/app');
+import { describe, expect, it, vi, beforeAll } from 'vitest';
+import request from 'supertest';
+import app from '../../app/app.js';
 
-jest.mock('../../controllers/data', () => ({
-  getData: (req, res) => res.status(200).json({ status: 200, data: [{ id: 1, data: {} }, { id: 2, data: {} }] }),
-  getDataById: (req, res) => res.status(200).json({ status: 200, data: [{ id: 1, data: {} }] }),
-  saveData: (req, res) => res.status(200).json({ status: 200, data: null })
+vi.mock('../../controllers/data.js', () => ({
+  __esModule: true,
+  default: {
+    getData: vi.fn((req, res) => res.status(200).json({ status: 200, data: [{ id: 1, data: {} }, { id: 2, data: {} }] })),
+    getDataById: vi.fn((req, res) => res.status(200).json({ status: 200, data: [{ id: 1, data: {} }] })),
+    saveData: vi.fn((req, res) => res.status(200).json({ status: 200, data: null }))
+  }
 }));
 
 describe('Data Routes', () => {
-  test('GET /data should fetch data successfully', async () => {
+  it('GET /data should fetch data successfully', async () => {
     const response = await request(app).get('/data');
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({ status: 200, data: [{ id: 1, data: {} }, { id: 2, data: {} }] });
   });
 
-  test('GET /data/:id should fetch data by ID successfully', async () => {
+  it('GET /data/:id should fetch data by ID successfully', async () => {
     const response = await request(app).get('/data/1');
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({ status: 200, data: [{ id: 1, data: {} }] });
   });
 
-  test('POST / should save data successfully', async () => {
+  it('POST / should save data successfully', async () => {
     const response = await request(app)
       .post('/data')
       .set('X-Plugin-Name', 'TestPlugin')

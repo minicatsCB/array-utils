@@ -1,6 +1,6 @@
-const cors = require("./cors");
-const logger = require("./logger");
-const response = require("./response");
-const unexpectedError = require("./unexpectedError");
+import cors from "./cors.js";
+import logger from "./logger.js";
+import response from "./response.js";
+import unexpectedError from "./unexpectedError.js";
 
-module.exports = { cors, logger, response, unexpectedError };
+export { cors, logger, response, unexpectedError };

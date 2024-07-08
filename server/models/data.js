@@ -1,40 +1,24 @@
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-
-const adapter = new FileSync('database/db.json');
-const db = low(adapter);
-
-// Set some defaults (required if the JSON file is empty)
-db.defaults({ data: [] }).write();
+import { JSONFilePreset  } from "lowdb/node";
+const defaultData = { machines: [] }
+const db = await JSONFilePreset('database/db.json', defaultData)
 
 let database = {
     getData: function() {
-        return db.get("data").value();
+        return db.data.machines;
     },
     getDataById: function(id) {
-        return db.get("data").find({"id": id}).value();
+        return db.data.machines.find(m => m.id === id);
     },
-    saveData: function(data, pluginType, machineId) {
-        if(database.machineExists(machineId)) {
-              db.get("data")
-                .find({ id: machineId })
-                .assign({ [pluginType]: data })
-                .write();
-
-            console.log("Record for this machine already exists. Updating data...");
+    saveData: async function(data, pluginType, machineId) {
+        const foundMachine = database.getDataById(machineId);
+        if(foundMachine) {
+            foundMachine[pluginType] = data;
+            await db.write();
         } else {
-            db.get("data")
-              .push({ id: machineId, [pluginType]: data })
-              .write();
-
-            console.log("No record for this machine found. Creating new record...");
+            db.data.machines.push({ id: machineId, [pluginType]: data })
+            await db.write();
         }
     },
-    machineExists: function(id) {
-        return db.get("data")
-            .find({ id: id })
-            .value();
-    }
 }
 
-module.exports = database;
+export default database;

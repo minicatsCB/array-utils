@@ -1,8 +1,16 @@
-const supertest = require('supertest');
-const app = require('../../app/app');
-const DataModel = require('../../models/data');
+import {describe, expect, it, vi} from 'vitest';
+import supertest from 'supertest';
+import app from '../../app/app';
+import database from '../../models/data.js';
 
-jest.mock('../../models/data');
+vi.mock('../../models/data.js', () => ({
+  __esModule: true,
+  default: {
+    getData: vi.fn(),
+    getDataById: vi.fn(),
+    saveData: vi.fn(),
+  }
+}));
 
 // TODO: extract these constants to a shared file
 const SUCCESS = 'success';
@@ -13,7 +21,7 @@ const ERROR = 'error';
 
 describe('Data Controller - Success', () => {
   it('should fetch all data', async () => {
-    DataModel.getData.mockReturnValue([{ id: 1, name: 'Test Data' }]);
+    database.getData.mockReturnValue([{ id: 1, name: 'Test Data' }]);
     await supertest(app)
       .get('/data')
       .then((response) => {
@@ -24,7 +32,7 @@ describe('Data Controller - Success', () => {
   });
 
   it('should fetch data by ID', async () => {
-    DataModel.getDataById.mockReturnValue({ id: 2, name: 'Specific Data' });
+    database.getDataById.mockReturnValue({ id: 2, name: 'Specific Data' });
     await supertest(app)
       .get('/data/2')
       .then((response) => {
@@ -36,7 +44,7 @@ describe('Data Controller - Success', () => {
 
 
   it('should write data', async () => {
-    DataModel.saveData.mockReturnValue({ status: SUCCESS, data: null });
+    database.saveData.mockReturnValue({ status: SUCCESS, data: null });
     await supertest(app)
       .post('/data')
       .send({ name: 'Linux' })
@@ -66,7 +74,7 @@ describe('Data Controller - Fail', () => {
 
 describe('Data Controller - Error', () => {
   it('should error if something unexpected happens', async () => {
-    DataModel.getData.mockImplementation(() => {
+    database.getData.mockImplementation(() => {
       throw new Error('Unexpected error occurred.');
     });
     await supertest(app)

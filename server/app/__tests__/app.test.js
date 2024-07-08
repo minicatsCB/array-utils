@@ -1,5 +1,6 @@
-const request = require("supertest");
-const app = require("../app");
+import { describe, expect, it } from 'vitest'
+import request from "supertest";
+import app from "../app";
 
 describe('GET /', () => {
     it('responds with a 200 status code and welcome message', async () => {
