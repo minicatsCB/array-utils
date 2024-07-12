@@ -15,7 +15,7 @@ export default class ApiService {
     }
   }
 
-  async fetchData(url: string): Promise<any> {
+  async fetchData<T>(url: string): Promise<T> {
     return this.httpClient.get(url);
   }
 }

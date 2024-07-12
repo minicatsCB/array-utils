@@ -1,36 +1,25 @@
-<script lang="ts">
+<script setup lang="ts">
 import { EVENTS } from '@/utils/eventBus';
 import type { Machine, ResponseData } from '@/utils/models';
-import { defineComponent } from 'vue';
+import { defineEmits, ref, onMounted } from 'vue';
 import ApiService from '@/services/ApiService';
 
-export default defineComponent({
-    name: 'info-tabs',
-    data() {
-        return {
-            tab: 'os',
-            machine: {} as Machine
-        }
-    },
-    props: {
-        id: { type: Number, required: true }
-    },
-    created: function () {
-        this.loadData();
-    },
-    methods: {
-        loadData(): void {
-            const apiService = new ApiService();
-            apiService.fetchData(import.meta.env.VITE_SERVER_HOST + "/data/" + this.id)
-                .then((response: ResponseData<Machine>) => {
-                    this.machine = response.data
-                })
-                .catch((err) => {
-                    this.$eventBus.emit(EVENTS.OnError);
-                })
-        },
+const tab = ref('os');
+const machine = ref({} as Machine);
+const props = defineProps<{ id: string }>();
+const emit = defineEmits([EVENTS.OnError]);
+
+const loadData = async () => {
+    const apiService = new ApiService();
+    try {
+        const response = await apiService.fetchData<ResponseData<Machine>>(`${import.meta.env.VITE_SERVER_HOST}/data/${props.id}`);
+        machine.value = response.data;
+    } catch (error) {
+        emit(EVENTS.OnError);
     }
-});
+};
+
+onMounted(loadData);
 </script>
 
 <template>
