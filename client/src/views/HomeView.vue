@@ -3,6 +3,7 @@ import { defineComponent } from 'vue';
 import MachineList from '../components/MachineList.vue'
 import { EVENTS } from "../utils/eventBus"
 import type { Machine, ResponseData } from '@/utils/models';
+import ApiService from '@/services/ApiService';
 
 export default defineComponent({
   components: {
@@ -18,7 +19,8 @@ export default defineComponent({
   },
   methods: {
     loadData(): void {
-      this.$axios.get(import.meta.env.VITE_SERVER_HOST + "/data")
+      const apiService = new ApiService();
+      apiService.fetchData(import.meta.env.VITE_SERVER_HOST + "/data")
         .then((response: ResponseData<Array<Machine>>) => {
           this.machines = response.data
         })

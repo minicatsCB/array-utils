@@ -2,6 +2,7 @@
 import { EVENTS } from '@/utils/eventBus';
 import type { Machine, ResponseData } from '@/utils/models';
 import { defineComponent } from 'vue';
+import ApiService from '@/services/ApiService';
 
 export default defineComponent({
     name: 'info-tabs',
@@ -19,7 +20,8 @@ export default defineComponent({
     },
     methods: {
         loadData(): void {
-            this.$axios.get(import.meta.env.VITE_SERVER_HOST + "/data/" + this.id)
+            const apiService = new ApiService();
+            apiService.fetchData(import.meta.env.VITE_SERVER_HOST + "/data/" + this.id)
                 .then((response: ResponseData<Machine>) => {
                     this.machine = response.data
                 })

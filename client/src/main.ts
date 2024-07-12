@@ -3,7 +3,6 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import axios from 'axios';
 import { eventBus } from "./utils/eventBus"
 
 // Vuetify
@@ -25,7 +24,6 @@ const vuetify = createVuetify({
 
 const app = createApp(App)
 
-app.config.globalProperties.$axios=axios
 app.config.globalProperties.$eventBus = eventBus;
 
 app.use(router)
