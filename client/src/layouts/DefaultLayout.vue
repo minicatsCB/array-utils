@@ -14,26 +14,15 @@
     </v-app>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import AppToast from '@/components/AppToast.vue';
+import { ref } from 'vue';
 
-export default defineComponent({
-    name: 'DefaultLayout',
-    components: {
-        AppToast
-    },
-    data() {
-        return {
-            isToastVisible: false
-        }
-    },
-    methods: {
-        handleError() {
-            this.isToastVisible = true;
-        }
-    }
-});
+const isToastVisible = ref(false);
+
+function handleError() {
+    isToastVisible.value = true;
+}
 </script>
 
 <style scoped>
