@@ -1,37 +1,26 @@
-<script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+<script setup lang="ts">
+import { defineEmits, onMounted, ref } from 'vue';
 import MachineList from '../components/MachineList.vue';
 import { EVENTS } from "../utils/eventBus";
 import type { Machine, ResponseData } from '@/utils/models';
 import ApiService from '@/services/ApiService';
 
-export default defineComponent({
-  components: {
-    MachineList
-  },
-  setup(props, { emit }) {
-    const machines = ref<Array<Machine>>([]);
+const emit = defineEmits([EVENTS.OnError]);
 
-    const loadData = async () => {
-      const apiService = new ApiService();
-      const data = await apiService.fetchData<ResponseData<Array<Machine>>>(import.meta.env.VITE_SERVER_HOST + "/data")
-        .then((response) => {
-          machines.value = response.data
-        })
-        .catch((err) => {
-          emit(EVENTS.OnError);
-        });
-    };
+const machines = ref<Array<Machine>>([]);
 
-    onMounted(() => {
-      loadData();
-    });
-
-    return {
-      machines,
-      loadData
-    };
+const loadData = async () => {
+  const apiService = new ApiService();
+  try {
+    const { data } = await apiService.fetchData<ResponseData<Array<Machine>>>(import.meta.env.VITE_SERVER_HOST + "/data")
+    machines.value = data;
+  } catch (error) {
+    emit(EVENTS.OnError);
   }
+};
+
+onMounted(() => {
+  loadData();
 });
 </script>
 
