@@ -1,7 +1,7 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
-import MachineList from '../components/MachineList.vue'
-import { EVENTS } from "../utils/eventBus"
+import { defineComponent, onMounted, ref } from 'vue';
+import MachineList from '../components/MachineList.vue';
+import { EVENTS } from "../utils/eventBus";
 import type { Machine, ResponseData } from '@/utils/models';
 import ApiService from '@/services/ApiService';
 
@@ -9,25 +9,28 @@ export default defineComponent({
   components: {
     MachineList
   },
-  data() {
-        return {
-            machines: [] as Array<Machine>
-        }
-  },
-  created: function (): void {
-    this.loadData()
-  },
-  methods: {
-    loadData(): void {
+  setup(props, { emit }) {
+    const machines = ref<Array<Machine>>([]);
+
+    const loadData = async () => {
       const apiService = new ApiService();
-      apiService.fetchData(import.meta.env.VITE_SERVER_HOST + "/data")
+      const data = await apiService.fetchData(import.meta.env.VITE_SERVER_HOST + "/data")
         .then((response: ResponseData<Array<Machine>>) => {
-          this.machines = response.data
+          machines.value = response.data
         })
         .catch((err) => {
-          this.$eventBus.emit(EVENTS.OnError);
-        })
-    },
+          emit(EVENTS.OnError);
+        });
+    };
+
+    onMounted(() => {
+      loadData();
+    });
+
+    return {
+      machines,
+      loadData
+    };
   }
 });
 </script>
