@@ -14,8 +14,8 @@ export default defineComponent({
 
     const loadData = async () => {
       const apiService = new ApiService();
-      const data = await apiService.fetchData(import.meta.env.VITE_SERVER_HOST + "/data")
-        .then((response: ResponseData<Array<Machine>>) => {
+      const data = await apiService.fetchData<ResponseData<Array<Machine>>>(import.meta.env.VITE_SERVER_HOST + "/data")
+        .then((response) => {
           machines.value = response.data
         })
         .catch((err) => {
