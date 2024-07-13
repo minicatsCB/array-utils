@@ -13,7 +13,7 @@ const emit = defineEmits([EVENTS.OnError]);
 const loadData = async () => {
     const apiService = new ApiService();
     try {
-        const response = await apiService.fetchData<ResponseData<Machine>>(`${import.meta.env.VITE_SERVER_HOST}/data/${route.params.id}`);
+        const response = await apiService.fetchData<ResponseData<Machine>>(`${route.params.id}`);
         machine.value = response.data;
     } catch (error) {
         emit(EVENTS.OnError);

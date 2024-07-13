@@ -6,6 +6,7 @@ interface IHttpClient {
 
 export default class ApiService {
   private httpClient: IHttpClient;
+  private readonly BASE_URL = `${import.meta.env.VITE_SERVER_HOST}/data`;
 
   constructor(httpClient?: IHttpClient) {
     if(httpClient) {
@@ -15,8 +16,8 @@ export default class ApiService {
     }
   }
 
-  async fetchData<T>(url: string): Promise<T> {
-    const response = await this.httpClient.get(url);
+  async fetchData<T>(slug: string = ''): Promise<T> {
+    const response = await this.httpClient.get(`${this.BASE_URL}/${slug}`);
     return response.data;
   }
 }

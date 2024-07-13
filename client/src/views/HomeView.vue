@@ -12,7 +12,7 @@ const machines = ref<Array<Machine>>([]);
 const loadData = async () => {
   const apiService = new ApiService();
   try {
-    const { data }: { data: Array<Machine> } = await apiService.fetchData<ResponseData<Array<Machine>>>(import.meta.env.VITE_SERVER_HOST + "/data")
+    const { data }: { data: Array<Machine> } = await apiService.fetchData<ResponseData<Array<Machine>>>()
     machines.value = data;
   } catch (error) {
     emit(EVENTS.OnError);
