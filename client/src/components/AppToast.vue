@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { EVENTS } from '@/utils/eventBus';
+import { EVENTS } from '@/utils/constants';
 import { defineComponent } from 'vue';
 
 export default defineComponent({

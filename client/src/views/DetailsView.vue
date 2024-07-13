@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EVENTS } from '@/utils/eventBus';
+import { EVENTS } from '@/utils/constants';
 import type { Machine, ResponseData } from '@/utils/models';
 import { ref, onMounted, } from 'vue';
 import ApiService from '@/services/ApiService';

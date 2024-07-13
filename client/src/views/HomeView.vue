@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineEmits, onMounted, ref } from 'vue';
 import MachineList from '../components/MachineList.vue';
-import { EVENTS } from "../utils/eventBus";
+import { EVENTS } from "../utils/constants";
 import type { Machine, ResponseData } from '@/utils/models';
 import ApiService from '@/services/ApiService';
 
