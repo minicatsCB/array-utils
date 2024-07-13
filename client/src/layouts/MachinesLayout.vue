@@ -1,11 +1,6 @@
 <template>
     <v-app>
         <app-toast v-model="isToastVisible"></app-toast>
-        <v-toolbar class="">
-            <v-spacer></v-spacer>
-            <img alt="Vue logo" src="@/assets/logo.svg" class="app-logo" />
-            <v-spacer></v-spacer>
-        </v-toolbar>
         <v-breadcrumbs :items="[`${$route.path}`]"></v-breadcrumbs>
 
         <v-main>
