@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import MachinesLayout from '@/layouts/MachinesLayout.vue';
 import Home from '@/views/HomeView.vue';
 import Details from '@/views/DetailsView.vue';
 import NotFound from '@/views/NotFoundView.vue';
@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/machines',
     redirect: '/machines/home',
-    component: DefaultLayout,
+    component: MachinesLayout,
     children: [
       {
         path: 'home/',
