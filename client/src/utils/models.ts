@@ -45,5 +45,6 @@ export interface Machine {
 }
 
 export interface ResponseData<T> {
+    sucess: string;    
     data: T;
 }

@@ -3,16 +3,17 @@ import { EVENTS } from '@/utils/constants';
 import type { Machine, ResponseData } from '@/utils/models';
 import { ref, onMounted, } from 'vue';
 import ApiService from '@/services/ApiService';
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
 const tab = ref('os');
 const machine = ref({} as Machine);
-const props = withDefaults(defineProps<{ id?: string; }>(), { id: 'default-id'});
 const emit = defineEmits([EVENTS.OnError]);
 
 const loadData = async () => {
     const apiService = new ApiService();
     try {
-        const response = await apiService.fetchData<ResponseData<Machine>>(`${import.meta.env.VITE_SERVER_HOST}/data/${props.id}`);
+        const response = await apiService.fetchData<ResponseData<Machine>>(`${import.meta.env.VITE_SERVER_HOST}/data/${route.params.id}`);
         machine.value = response.data;
     } catch (error) {
         emit(EVENTS.OnError);

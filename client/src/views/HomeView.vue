@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import MachineList from '../components/MachineList.vue';
 import { EVENTS } from "../utils/constants";
 import type { Machine, ResponseData } from '@/utils/models';
@@ -12,7 +12,7 @@ const machines = ref<Array<Machine>>([]);
 const loadData = async () => {
   const apiService = new ApiService();
   try {
-    const { data } = await apiService.fetchData<ResponseData<Array<Machine>>>(import.meta.env.VITE_SERVER_HOST + "/data")
+    const { data }: { data: Array<Machine> } = await apiService.fetchData<ResponseData<Array<Machine>>>(import.meta.env.VITE_SERVER_HOST + "/data")
     machines.value = data;
   } catch (error) {
     emit(EVENTS.OnError);

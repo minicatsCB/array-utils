@@ -16,6 +16,7 @@ export default class ApiService {
   }
 
   async fetchData<T>(url: string): Promise<T> {
-    return this.httpClient.get(url);
+    const response = await this.httpClient.get(url);
+    return response.data;
   }
 }
