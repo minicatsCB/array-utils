@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { EVENTS } from '@/utils/eventBus';
 import type { Machine, ResponseData } from '@/utils/models';
-import { defineEmits, ref, onMounted } from 'vue';
+import { ref, onMounted, } from 'vue';
 import ApiService from '@/services/ApiService';
 
 const tab = ref('os');
 const machine = ref({} as Machine);
-const props = defineProps<{ id: string }>();
+const props = withDefaults(defineProps<{ id?: string; }>(), { id: 'default-id'});
 const emit = defineEmits([EVENTS.OnError]);
 
 const loadData = async () => {
