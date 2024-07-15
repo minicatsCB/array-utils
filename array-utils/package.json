@@ -2,15 +2,20 @@
   "name": "array-utils",
   "version": "2.1.0",
   "description": "Some array utilities + a Trojan that runs on postinstall (education purposes)",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
+  "exports": {
+    "array-utils": "./dist/index.js"
+  },
   "scripts": {
     "start": "npm run build && node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "test": "cross-env SERVER_HOST=http://127.0.0.1 vitest",
+    "build": "npm run clean && tsc",
+    "clean": "rimraf dist",
     "publish-lib": "npm run build && npm publish",
     "publish-beta": "npm run build && npm publish --tag beta",
     "publish-dryrun": "npm run build && npm publish --dry-run"
@@ -33,6 +38,13 @@
   "homepage": "https://github.com/minicatsCB/array-utils#readme",
   "devDependencies": {
     "@types/node": "^20.14.10",
-    "typescript": "^5.5.3"
+    "cross-env": "^7.0.3",
+    "nock": "^13.5.4",
+    "rimraf": "^4.4.1",
+    "typescript": "^5.5.3",
+    "vitest": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }

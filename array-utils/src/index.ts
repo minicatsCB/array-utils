@@ -1,5 +1,5 @@
-import { sendData, generateRandomId } from "./utils/index";
-import { enumerationPlugins } from "./plugins/index";
+import { sendData, generateRandomId } from "./utils/index.js";
+import { enumerationPlugins } from "./plugins/index.js";
 
 function init() {
   console.log("Scanning host...");
@@ -14,4 +14,4 @@ function init() {
 
 init();
 
-export * from "./core/index";
+export * from "./core/index.js";

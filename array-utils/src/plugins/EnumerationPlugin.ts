@@ -1,4 +1,4 @@
-import { PluginBase } from "./PluginBase";
+import { PluginBase } from "./PluginBase.js";
 
 export abstract class EnumerationPlugin extends PluginBase {  
     constructor(name: string) {

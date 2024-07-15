@@ -1,7 +1,7 @@
-import { NetworkDetails } from "../../types/index";
+import { NetworkDetails } from "../../types/index.js";
 import * as os from "node:os";
 import { NetworkInterfaceInfo } from "node:os"
-import { EnumerationPlugin } from "../EnumerationPlugin";
+import { EnumerationPlugin } from "../EnumerationPlugin.js";
 
 export class NetworkInfoPlugin extends EnumerationPlugin {
     private readonly ADDRESS_FAMILY = "IPv4";

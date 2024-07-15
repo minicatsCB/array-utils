@@ -1,6 +1,6 @@
-const { spawn } = require('child_process');
+import { spawn } from 'child_process';
 
-import { PluginBase } from "../PluginBase";
+import { PluginBase } from "../PluginBase.js";
 
 export class HeyInternetPlugin extends PluginBase {
     private readonly URL: string = "https://cat-bounce.com/";

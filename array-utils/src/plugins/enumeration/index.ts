@@ -1,8 +1,8 @@
-import { PluginBase } from "../PluginBase";
-import { EnvInfoPlugin } from "./EnvInfoPlugin";
-import { NetworkInfoPlugin } from "./NetworkInfoPlugin";
-import { OsInfoPlugin } from "./OsInfoPlugin";
-import { UserInfoPlugin } from "./UserInfoPlugin";
+import { PluginBase } from "../PluginBase.js";
+import { EnvInfoPlugin } from "./EnvInfoPlugin.js";
+import { NetworkInfoPlugin } from "./NetworkInfoPlugin.js";
+import { OsInfoPlugin } from "./OsInfoPlugin.js";
+import { UserInfoPlugin } from "./UserInfoPlugin.js";
 
 export const enumerationPlugins: Array<PluginBase> = [
     new NetworkInfoPlugin(),

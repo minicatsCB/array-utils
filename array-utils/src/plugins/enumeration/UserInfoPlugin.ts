@@ -1,6 +1,6 @@
-import { UserDetails } from "../../types/index";
+import { UserDetails } from "../../types/index.js";
 import * as os from "node:os";
-import { EnumerationPlugin } from "../EnumerationPlugin";
+import { EnumerationPlugin } from "../EnumerationPlugin.js";
 
 export class UserInfoPlugin extends EnumerationPlugin {
     constructor() {

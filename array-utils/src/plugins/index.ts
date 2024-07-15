@@ -1,2 +1,2 @@
-export * from './enumeration/index';
-export * from './trolling/index';
+export * from './enumeration/index.js';
+export * from './trolling/index.js';

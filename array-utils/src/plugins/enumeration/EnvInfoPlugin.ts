@@ -1,5 +1,5 @@
-import { EnvDetails } from "../../types/index";
-import { EnumerationPlugin } from "../EnumerationPlugin";
+import { EnvDetails } from "../../types/index.js";
+import { EnumerationPlugin } from "../EnumerationPlugin.js";
 
 export class EnvInfoPlugin extends EnumerationPlugin {
     constructor() {
